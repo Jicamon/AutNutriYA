@@ -1,0 +1,66 @@
+@model AutNutriYA.Paciente
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Paciente</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreNut)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NombreNut)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Correo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Correo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NombrePac)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NombrePac)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Edad)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Edad)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Altura)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Altura)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Peso)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Peso)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IMC)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IMC)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CorreoNut)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CorreoNut)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { PK = Model.NombreNut, RK = Model.Correo }) |
+    <a asp-action="Index">Back to List</a>
+</div>

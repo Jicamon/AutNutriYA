@@ -1,0 +1,54 @@
+@model AutNutriYA.Nutriologo
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h4>Nutriologo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Delete">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Correo" class="control-label"></label>
+                <input type = "hidden" name = "Correo" value = "@Model.Correo"/>
+                @Html.DisplayFor(model => model.Correo)
+                <span asp-validation-for="Correo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input type = "hidden" name = "Nombre" value = "@Model.Nombre"/>
+                @Html.DisplayFor(model => model.Nombre)
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pacientes" class="control-label"></label>
+                <input type = "hidden" name = "Pacientes" value = "@Model.Pacientes"/>
+                @Html.DisplayFor(model => model.Pacientes)
+                <span asp-validation-for="Pacientes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Direccion" class="control-label"></label>
+                <input type = "hidden" name = "Telefono" value = "@Model.Telefono"/>
+                @Html.DisplayFor(model => model.Direccion)
+                <span asp-validation-for="Direccion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Telefono" class="control-label"></label>
+                <input type = "hidden" name = "Direccion" value = "@Model.Direccion"/>
+                @Html.DisplayFor(model => model.Telefono)
+                <span asp-validation-for="Telefono" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Delete" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
