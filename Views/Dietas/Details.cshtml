@@ -1,0 +1,60 @@
+@model AutNutriYA.Dieta
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Dieta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Dia)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Dia)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Desayuno)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Desayuno)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ColacionM)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ColacionM)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Comida)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Comida)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ColacionT)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ColacionT)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Cena)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cena)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { PK = Model.Nombre, RK = Model.Dia }) |
+    <a asp-action="Index">Back to List</a>
+</div>

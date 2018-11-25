@@ -1,0 +1,71 @@
+@model IEnumerable<AutNutriYA.Dieta>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Desayuno)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ColacionM)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comida)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ColacionT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cena)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Desayuno)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ColacionM)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comida)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ColacionT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cena)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { PK=item.Nombre, RK=item.Dia }) |
+                @Html.ActionLink("Details", "Details", new { PK=item.Nombre, RK=item.Dia }) |
+                @Html.ActionLink("Delete", "Delete", new { PK=item.Nombre, RK=item.Dia })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

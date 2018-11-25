@@ -1,0 +1,59 @@
+@model IEnumerable<AutNutriYA.Platillo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.tipo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.platillo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ingredientes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.calorias)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.porcion)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.tipo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.platillo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ingredientes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.calorias)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.porcion)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { PK = item.tipo, RK = item.platillo }) |
+                @Html.ActionLink("Details", "Details", new { PK = item.tipo, RK = item.platillo }) |
+                @Html.ActionLink("Delete", "Delete", new { PK = item.tipo, RK = item.platillo })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

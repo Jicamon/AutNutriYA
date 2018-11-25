@@ -1,0 +1,48 @@
+@model AutNutriYA.Platillo
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Platillo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.tipo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.tipo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.platillo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.platillo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ingredientes)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ingredientes)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.calorias)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.calorias)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.porcion)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.porcion)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { PK = Model.tipo, RK = Model.platillo }) |
+    <a asp-action="Index">Back to List</a>
+</div>

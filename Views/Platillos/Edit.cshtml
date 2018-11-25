@@ -1,0 +1,50 @@
+@model AutNutriYA.Platillo
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Platillo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="tipo" class="control-label"></label>
+                <input asp-for="tipo" class="form-control" />
+                <span asp-validation-for="tipo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="platillo" class="control-label"></label>
+                <input asp-for="platillo" class="form-control" />
+                <span asp-validation-for="platillo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ingredientes" class="control-label"></label>
+                <input asp-for="ingredientes" class="form-control" />
+                <span asp-validation-for="ingredientes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="calorias" class="control-label"></label>
+                <input asp-for="calorias" class="form-control" />
+                <span asp-validation-for="calorias" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="porcion" class="control-label"></label>
+                <input asp-for="porcion" class="form-control" />
+                <span asp-validation-for="porcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
