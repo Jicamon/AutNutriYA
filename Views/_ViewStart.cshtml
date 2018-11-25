@@ -1,3 +1,15 @@
 ﻿@{
-    Layout = "_Layout";
+    if(User.IsInRole("Admin")){
+        Layout = "_LayoutAdmin";
+    }else{
+        if(User.IsInRole("Nutriologo")){
+            Layout = "_LayoutNutriologo";
+        }else{
+            if(User.IsInRole("Paciente")){
+                Layout = "_LayoutPaciente";
+            }else{
+                Layout = "_Layout";
+            }
+        }
+    }
 }

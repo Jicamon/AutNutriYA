@@ -173,7 +173,7 @@ Write(Html.ActionLink("Edit", "Edit", new { correo=Model.Correo , nombre=Model.N
             WriteLiteral(" |\r\n    ");
             EndContext();
             BeginContext(1150, 38, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "561355f7c2e14d6f94ca9963801b94e0", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8c4d3f2a9d4f4e6686f94d5b34f9bc84", async() => {
                 BeginContext(1172, 12, true);
                 WriteLiteral("Back to List");
                 EndContext();

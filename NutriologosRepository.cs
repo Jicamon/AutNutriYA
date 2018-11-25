@@ -121,34 +121,38 @@ namespace AutNutriYA{
 
         }
 
-        public bool CrearNutriologo(Nutriologo model){
+        public bool CrearNutriologo(Nutriologo model, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager){
             
-            
-            /*
-            
-            if (userManager.FindByEmailAsync("admin@mail.com").Result==null)
-            {
-                IdentityUser user = new IdentityUser
-                {
-                    UserName = model.Nombre,
-                    Email = model.Correo
-                };
 
-                IdentityResult result = userManager.CreateAsync(user, "Password1234!").Result;
+            
 
-                if (result.Succeeded)
-                {
-                    userManager.AddToRoleAsync(user, "Nutriologo").Wait();
-                }
-            }
-            */
             var StorageAccount = new CloudStorageAccount(new StorageCredentials(STORAGEACCOUNTNAME,ACCOUNTKEY),false);
             var tableClient = StorageAccount.CreateCloudTableClient();
             var Table = tableClient.GetTableReference("Nutriologo");
-
+            crearNutriologoLOGIN(userManager, model);
             Table.ExecuteAsync(TableOperation.Insert(new NutriologoEntity(model.Correo,model.Nombre,model.Telefono,model.Direccion)));
 
             return true;
+        }
+        public void crearNutriologoLOGIN(UserManager<IdentityUser> uManager, Nutriologo model){
+
+            if (uManager.FindByEmailAsync(model.Correo).Result == null){
+
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = model.Correo,
+                    Email = model.Correo
+                };
+
+                IdentityResult result = uManager.CreateAsync(user, "Contraseña12!").Result;
+
+                if(result.Succeeded)
+                {
+                    uManager.AddToRoleAsync(user, "Nutriologo").Wait();
+                }
+
+            }
+
         }
 
         

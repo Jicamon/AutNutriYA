@@ -4,22 +4,22 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>Mis Paciente</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Nuevo Paciente</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
+            <!--<th>
                 @Html.DisplayNameFor(model => model.NombreNut)
+            </th> -->
+            <th>
+                Paciente <!--@Html.DisplayNameFor(model => model.NombrePac)-->
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Correo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NombrePac)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Edad)
@@ -33,23 +33,23 @@
             <th>
                 @Html.DisplayNameFor(model => model.IMC)
             </th>
-            <th>
+            <!--<th>
                 @Html.DisplayNameFor(model => model.CorreoNut)
-            </th>
+            </th> -->
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
+           <!-- <td>
                 @Html.DisplayFor(modelItem => item.NombreNut)
+            </td> -->
+            <td>
+                @Html.DisplayFor(modelItem => item.NombrePac)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Correo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombrePac)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Edad)
@@ -63,13 +63,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.IMC)
             </td>
-            <td>
+            <!--<td>
                 @Html.DisplayFor(modelItem => item.CorreoNut)
-            </td>
+            </td>  -->
             <td>
-                @Html.ActionLink("Edit", "Edit", new { PK = item.NombreNut, RK = item.Correo }) |
-                @Html.ActionLink("Details", "Details", new { PK = item.NombreNut, RK = item.Correo }) |
-                @Html.ActionLink("Delete", "Delete", new { PK = item.NombreNut, RK = item.Correo })
+                @Html.ActionLink("Editar", "Edit", new { PK = item.NombreNut, RK = item.Correo }) |
+                @Html.ActionLink("Detalles", "Details", new { PK = item.NombreNut, RK = item.Correo }) |
+                @Html.ActionLink("Borrar", "Delete", new { PK = item.NombreNut, RK = item.Correo })
             </td>
         </tr>
 }

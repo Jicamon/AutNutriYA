@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AutNutriYA.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Nutriologo")]
 
     public class IngredientesController : Controller
     {   

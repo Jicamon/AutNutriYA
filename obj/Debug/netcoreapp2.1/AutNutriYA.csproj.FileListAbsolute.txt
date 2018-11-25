@@ -49,3 +49,8 @@ C:\Users\chuy_\Documents\Jicamon\Moya\AutNutriYA\obj\Debug\netcoreapp2.1\Razor\V
 C:\Users\chuy_\Documents\Jicamon\Moya\AutNutriYA\obj\Debug\netcoreapp2.1\Razor\Views\Pacientes\Details.g.cshtml.cs
 C:\Users\chuy_\Documents\Jicamon\Moya\AutNutriYA\obj\Debug\netcoreapp2.1\Razor\Views\Pacientes\Edit.g.cshtml.cs
 C:\Users\chuy_\Documents\Jicamon\Moya\AutNutriYA\obj\Debug\netcoreapp2.1\Razor\Views\Pacientes\Index.g.cshtml.cs
+C:\Users\chuy_\Documents\Jicamon\Moya\AutNutriYA\obj\Debug\netcoreapp2.1\Razor\Views\Home\About.2.g.cshtml.cs
+C:\Users\chuy_\Documents\Jicamon\Moya\AutNutriYA\obj\Debug\netcoreapp2.1\Razor\Views\Home\InfoApp.g.cshtml.cs
+C:\Users\chuy_\Documents\Jicamon\Moya\AutNutriYA\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_LayoutAdmin.g.cshtml.cs
+C:\Users\chuy_\Documents\Jicamon\Moya\AutNutriYA\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_LayoutNutriologo.g.cshtml.cs
+C:\Users\chuy_\Documents\Jicamon\Moya\AutNutriYA\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_LayoutPaciente.g.cshtml.cs

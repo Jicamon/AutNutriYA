@@ -28,6 +28,12 @@ namespace AutNutriYA.Controllers
 
             return View();
         }
+        public IActionResult InfoApp()
+        {
+            ViewData["Message"] = "Descarga la App";
+
+            return View();
+        }
 
         public IActionResult Privacy()
         {

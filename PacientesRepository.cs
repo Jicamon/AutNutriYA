@@ -5,11 +5,17 @@ using Microsoft.WindowsAzure.Storage.Table;
 using Microsoft.WindowsAzure.Storage.Queue;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AutNutriYA{
-    public class PacientesRepository{
+    
+    public class PacientesRepository : Controller {
+
+        
         public const string STORAGEACCOUNTNAME = "s101moyag8";
         public const string ACCOUNTKEY = "WPB64UdtcYgJZ+d+EQW8v+LPrj0YkakcAsQXtE6KvOhMaTxuIaP+EqD7tXHpG3hqoKMlAWFwdLR2e1vWU57i+g==";
+
+        //private readonly UserManager<IdentityUser> userManager;
 
         public List<Paciente> LeerPaciente(){
             var Table = ReferenciaTabla("Pacientes");
@@ -20,7 +26,9 @@ namespace AutNutriYA{
                 );            
                 
                 CacharPacientes();
-
+                
+               
+                
                 async void CacharPacientes(){
                 var list = new List<PacienteEntity>();
                 var tk = new TableContinuationToken();
@@ -73,18 +81,17 @@ namespace AutNutriYA{
             Table.ExecuteAsync(mergeOperation);
         }
 
-        public bool CrearPaciente(Paciente model){
+        public bool CrearPaciente(Paciente model, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager){
             var Table = ReferenciaTabla("Pacientes");
 
-            //crearPacienteLOGIN(  ,model)
+            crearPacienteLOGIN(userManager ,model);
             Table.ExecuteAsync(TableOperation.Insert(new PacienteEntity(model.NombreNut,model.Correo,model.NombrePac,model.Edad,model.Altura,model.Peso,model.CorreoNut)));
 
             return true;
         }
-/*
-        public void crearPacienteLOGIN(UserManager<IdentityUser> userManager, Paciente model){
+        public void crearPacienteLOGIN(UserManager<IdentityUser> uManager, Paciente model){
 
-            if (userManager.FindByEmailAsync(model.Correo).Result == null){
+            if (uManager.FindByEmailAsync(model.Correo).Result == null){
 
                 IdentityUser user = new IdentityUser
                 {
@@ -92,11 +99,11 @@ namespace AutNutriYA{
                     Email = model.Correo
                 };
 
-                IdentityResult result = userManager.CreateAsync(user, "Contraseña12!").Result;
+                IdentityResult result = uManager.CreateAsync(user, "Contraseña12!").Result;
 
                 if(result.Succeeded)
                 {
-                    userManager.AddToRoleAsync(user, "Paciente").Wait();
+                    uManager.AddToRoleAsync(user, "Paciente").Wait();
                 }
 
             }
@@ -118,7 +125,7 @@ namespace AutNutriYA{
                 await Table.ExecuteAsync(deleteOperation);
             }
         }
-        */
+        
 
         public bool ActualizarPaciente(Paciente Paci)
         {
@@ -239,9 +246,18 @@ namespace AutNutriYA{
             CorreoNut = correoNut;
 
         }
-        
-        
-       
+    }
+
+    public interface IPacientesRepository{
+
+        List<Paciente> LeerPaciente();
+        void AgregarPacienteANutriologo(Paciente model);
+        bool CrearPaciente(Paciente model);
+        bool ActualizarPaciente(Paciente Paci);
+        bool BorrarPaciente(Paciente Paci);
+        Paciente LeerPorPKRK(string PK, string RK);
+        CloudTable ReferenciaTabla(string nombreTabla);
+
     }
 
 

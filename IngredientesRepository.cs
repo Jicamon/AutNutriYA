@@ -44,23 +44,6 @@ namespace AutNutriYA{
             return true;
         }
 
-/*
-        public async void BorrarIngrediente(string PK, string RK){
-            var Table = ReferenciaTabla("Ingredientes");
-
-            TableOperation retrieveOperation = TableOperation.Retrieve<IngredienteEntity>(PK, RK);
-            TableResult retrievedResult = await Table.ExecuteAsync(retrieveOperation);
-            IngredienteEntity deleteEntity = (IngredienteEntity)retrievedResult.Result;
-
-            if (deleteEntity != null)
-            {
-                TableOperation deleteOperation = TableOperation.Delete(deleteEntity);
-
-                await Table.ExecuteAsync(deleteOperation);
-            }
-        }
-*/
-
         public bool ActualizarIngrediente(Ingrediente Paci)
         {
             var Table = ReferenciaTabla("Ingredientes");

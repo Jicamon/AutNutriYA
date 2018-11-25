@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AutNutriYA.Controllers
@@ -11,6 +12,15 @@ namespace AutNutriYA.Controllers
     [Authorize(Roles="Admin")]
     public class NutriologosController : Controller
     {
+        private readonly UserManager<IdentityUser> _uManager;
+        private readonly RoleManager<IdentityRole> _rManager;
+
+        public NutriologosController(/* IPacientesRepository repo, */RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
+        {
+            //this._repo = repo;
+            this._rManager = roleManager;
+            this._uManager = userManager;
+        }
         
         // GET: Nutriologo
         NutriologosRepository repo = new NutriologosRepository();
@@ -45,7 +55,7 @@ namespace AutNutriYA.Controllers
         {
             try
             {
-                var resultado = repo.CrearNutriologo(model);
+                var resultado = repo.CrearNutriologo(model,_uManager, _rManager);
                 return RedirectToAction(nameof(Index));
             }
             catch

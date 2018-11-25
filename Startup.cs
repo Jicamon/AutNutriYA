@@ -34,6 +34,8 @@ namespace AutNutriYA
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -46,6 +48,8 @@ namespace AutNutriYA
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            
+            //services.AddIdentity<PacientesRepository, NutriologosRepository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

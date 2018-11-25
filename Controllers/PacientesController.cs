@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AutNutriYA.Controllers
@@ -12,7 +13,16 @@ namespace AutNutriYA.Controllers
     public class PacientesController : Controller
     {   
         
-        //int Hola = 3;
+        //private IPacientesRepository _repo;
+        private readonly UserManager<IdentityUser> _uManager;
+        private readonly RoleManager<IdentityRole> _rManager;
+
+        public PacientesController(/* IPacientesRepository repo, */RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
+        {
+            //this._repo = repo;
+            this._rManager = roleManager;
+            this._uManager = userManager;
+        }
         PacientesRepository repo = new PacientesRepository();
         //public PacientesController(PacientesRepository pacientesRepo){
         //    repo = pacientesRepo;
@@ -50,7 +60,7 @@ namespace AutNutriYA.Controllers
         {
             try
             {
-                var resultado = repo.CrearPaciente(model);
+                var resultado = repo.CrearPaciente(model, _uManager, _rManager);
                 //repo.AgregarPacienteANutriologo(model);
                 return RedirectToAction(nameof(Index));
 
