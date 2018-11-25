@@ -12581,23 +12581,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\chuy_\\.nuget\\packages\\": {},
+    "C:\\Users\\Naroh\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\chuy_\\Documents\\Jicamon\\Moya\\AutNutriYA\\AutNutriYA.csproj",
+      "projectUniqueName": "c:\\Users\\Naroh\\Desktop\\Semestre 9\\IngWeb\\AutNutriYa\\AutNutriYA.csproj",
       "projectName": "AutNutriYA",
-      "projectPath": "c:\\Users\\chuy_\\Documents\\Jicamon\\Moya\\AutNutriYA\\AutNutriYA.csproj",
-      "packagesPath": "C:\\Users\\chuy_\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\chuy_\\Documents\\Jicamon\\Moya\\AutNutriYA\\obj\\",
+      "projectPath": "c:\\Users\\Naroh\\Desktop\\Semestre 9\\IngWeb\\AutNutriYa\\AutNutriYA.csproj",
+      "packagesPath": "C:\\Users\\Naroh\\.nuget\\packages\\",
+      "outputPath": "c:\\Users\\Naroh\\Desktop\\Semestre 9\\IngWeb\\AutNutriYa\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\chuy_\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Naroh\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
