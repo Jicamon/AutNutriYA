@@ -233,7 +233,7 @@ Write(Html.ActionLink("Edit", "Edit", new { PK = Model.NombreNut, RK = Model.Cor
             WriteLiteral(" |\r\n    ");
             EndContext();
             BeginContext(1695, 38, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c25196ef16a64f08b21c68e77b0abc91", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4d405b70d3dd45dd829054f3c199ba68", async() => {
                 BeginContext(1717, 12, true);
                 WriteLiteral("Back to List");
                 EndContext();

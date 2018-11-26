@@ -173,7 +173,7 @@ Write(Html.ActionLink("Edit", "Edit", new { PK = Model.tipo, RK = Model.platillo
             WriteLiteral(" |\r\n    ");
             EndContext();
             BeginContext(1143, 38, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4c795aa80bdd4e11a5fc8496666cbcdb", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2fa76bfda538455d8d106150e969059e", async() => {
                 BeginContext(1165, 12, true);
                 WriteLiteral("Back to List");
                 EndContext();
