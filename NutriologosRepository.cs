@@ -42,15 +42,14 @@ namespace AutNutriYA{
             return Nutriologos;
         }
 
-        public Nutriologo LeerNutriologo(string correo, string nombre)
-            {
+        public Nutriologo LeerNutriologo(string correo, string nombre){
                 
-                var Table = ReferenciaTabla("Nutriologo");
-                Nutriologo nutriologo= new Nutriologo();
-                TableOperation retrieveOperation = TableOperation.Retrieve<NutriologoEntity>(correo, nombre);
+            var Table = ReferenciaTabla("Nutriologo");
+            Nutriologo nutriologo= new Nutriologo();
+            TableOperation retrieveOperation = TableOperation.Retrieve<NutriologoEntity>(correo, null);
 
-                CacharNutriologo();
-                async void CacharNutriologo(){
+            CacharNutriologo();
+            async void CacharNutriologo(){
 
                 TableResult retrievedResult = await Table.ExecuteAsync(retrieveOperation);
                 var newNutriologo = (NutriologoEntity)retrievedResult.Result;
@@ -64,9 +63,40 @@ namespace AutNutriYA{
 
                 nutriologo = newNutrilogo2;
                 }
-                System.Threading.Thread.Sleep(500);
-                return nutriologo;
+            System.Threading.Thread.Sleep(500);
+            return nutriologo;
+        }
+
+        public Nutriologo LeerNutriologo(string correo){
+            Nutriologo nutriologo = new Nutriologo();
+            NutriologoEntity nutriologo2 = new NutriologoEntity();
+            var Table = ReferenciaTabla("Nutriologo");
+            TableQuery<NutriologoEntity> query = new TableQuery<NutriologoEntity>().Where(
+                TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, correo));
+            System.Threading.Thread.Sleep(1000);
+            CacharNutriologo();
+            async void CacharNutriologo(){
+                var list = new List<NutriologoEntity>();
+                var tk = new TableContinuationToken();
+                foreach (NutriologoEntity entity in await Table.ExecuteQuerySegmentedAsync(query, tk)){
+                    
+                    var newNutrilogo2 = new Nutriologo(
+                        entity.PartitionKey, 
+                        entity.RowKey,
+                        entity.Pacientes, 
+                        entity.Direccion,
+                        entity.Telefono);
+
+                    nutriologo = newNutrilogo2;
+                    
+
+                }
             }
+            System.Threading.Thread.Sleep(500);
+            return nutriologo;
+            
+            
+        }
 
         public bool ActualizarNutriologo(Nutriologo Nutriologo)
         {
@@ -145,7 +175,7 @@ namespace AutNutriYA{
                 };
 
                 IdentityResult result = uManager.CreateAsync(user, "Contraseña12!").Result;
-                //uManager.CheckPasswordAsync(, "Contraseña12!");
+
                 if(result.Succeeded)
                 {
                     uManager.AddToRoleAsync(user, "Nutriologo").Wait();
@@ -154,8 +184,6 @@ namespace AutNutriYA{
             }
 
         }
-
-        
 
         
         public CloudTable ReferenciaTabla(string nombreTabla){

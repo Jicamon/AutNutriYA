@@ -36,6 +36,34 @@ namespace AutNutriYA{
             return Ingredientes;
         }
 
+        public Ingrediente LeerIngrediente(string correo){
+            Ingrediente ingrediente = new Ingrediente();
+            IngredienteEntity ingrediente2 = new IngredienteEntity();
+            var Table = ReferenciaTabla("Ingredientes");
+            TableQuery<IngredienteEntity> query = new TableQuery<IngredienteEntity>().Where(
+                TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, correo));
+            System.Threading.Thread.Sleep(1000);
+            CacharIngrediente();
+            async void CacharIngrediente(){
+                var list = new List<IngredienteEntity>();
+                var tk = new TableContinuationToken();
+                foreach (IngredienteEntity entity in await Table.ExecuteQuerySegmentedAsync(query, tk)){
+                    
+                    var newIngrediente2 = new Ingrediente(
+                        entity.PartitionKey, 
+                        entity.RowKey);
+
+                    ingrediente = newIngrediente2;
+                    
+
+                }
+            }
+            System.Threading.Thread.Sleep(500);
+            return ingrediente;
+            
+            
+        }
+
         public bool CrearIngrediente(Ingrediente model){
             var Table = ReferenciaTabla("Ingredientes");
 
