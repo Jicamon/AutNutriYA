@@ -1,13 +1,13 @@
 @model IEnumerable<AutNutriYA.Nutriologo>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Nutriologos";
 }
 
-<h2>Index</h2>
+<h2>Nutriologos</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Nuevo Nutriologo</a>
 </p>
 <table class="table">
     <thead>
@@ -45,9 +45,12 @@
                 @Html.DisplayFor(modelItem => item.Telefono)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { correo=item.Correo , nombre=item.Nombre }) |
-                @Html.ActionLink("Details", "Details", new { correo=item.Correo , nombre=item.Nombre }) |
-                @Html.ActionLink("Delete", "Delete", new { correo=item.Correo , nombre=item.Nombre })
+                <a href="Nutriologos/Edit?correo=@item.Correo&nombre=@item.Nombre"><img src="~/images/Editar.png" width="20" height="20"></a>
+               <!--@Html.ActionLink("culo", "Edit", new { correo=item.Correo , nombre=item.Nombre }) -->|
+                <a href="Nutriologos/Details?correo=@item.Correo&nombre=@item.Nombre"><img src="~/images/Detalles.png" width="20" height="20"></a>
+               <!--@Html.ActionLink("Details", "Details", new { correo=item.Correo , nombre=item.Nombre }) -->|
+               <a href="Nutriologos/Delete?correo=@item.Correo&nombre=@item.Nombre"><img src="~/images/Borrar.png" width="20" height="20"></a>
+               <!--@Html.ActionLink("Delete", "Delete", new { correo=item.Correo , nombre=item.Nombre }) -->
             </td>
         </tr>
 }

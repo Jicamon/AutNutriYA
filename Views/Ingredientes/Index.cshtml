@@ -1,13 +1,13 @@
 @model IEnumerable<AutNutriYA.Ingrediente>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Ingredientes";
 }
 
-<h2>Index</h2>
+<h2>Ingredientes</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Añadir Ingrediente</a>
 </p>
 <table class="table">
     <thead>
@@ -32,9 +32,15 @@
                 @Html.DisplayFor(modelItem => item.Nombre)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { PK = item.Tipo, RK = item.Nombre }) |
+                <a href="/Ingredientes/Edit?PK=@item.Tipo&RK=@item.Nombre"><img src="~/images/Editar.png" width="20" height="20"></a>|
+                
+                <a href="/Ingredientes/Details?PK=@item.Tipo&RK=@item.Nombre"><img src="~/images/Detalles.png" width="20" height="20"></a>|
+                
+                <a href="/Ingredientes/Delete?PK=@item.Tipo&RK=@item.Nombre"><img src="~/images/Borrar.png" width="20" height="20"></a>
+                
+                <!--@Html.ActionLink("Edit", "Edit", new { PK = item.Tipo, RK = item.Nombre }) |
                 @Html.ActionLink("Details", "Details", new { PK = item.Tipo, RK = item.Nombre }) |
-                @Html.ActionLink("Delete", "Delete", new { PK = item.Tipo, RK = item.Nombre })
+                @Html.ActionLink("Delete", "Delete", new { PK = item.Tipo, RK = item.Nombre })-->
             </td>
         </tr>
 }

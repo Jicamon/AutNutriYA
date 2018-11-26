@@ -15,9 +15,9 @@ namespace AutNutriYA.Controllers
         private readonly UserManager<IdentityUser> _uManager;
         private readonly RoleManager<IdentityRole> _rManager;
 
-        public NutriologosController(/* IPacientesRepository repo, */RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
+        public NutriologosController(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
         {
-            //this._repo = repo;
+           
             this._rManager = roleManager;
             this._uManager = userManager;
         }

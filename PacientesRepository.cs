@@ -6,9 +6,9 @@ using Microsoft.WindowsAzure.Storage.Queue;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AutNutriYA{
-    
     public class PacientesRepository : Controller {
 
         
@@ -16,13 +16,13 @@ namespace AutNutriYA{
         public const string ACCOUNTKEY = "WPB64UdtcYgJZ+d+EQW8v+LPrj0YkakcAsQXtE6KvOhMaTxuIaP+EqD7tXHpG3hqoKMlAWFwdLR2e1vWU57i+g==";
 
         //private readonly UserManager<IdentityUser> userManager;
-
+        
         public List<Paciente> LeerPaciente(){
             var Table = ReferenciaTabla("Pacientes");
             List<Paciente> Pacientes = new List<Paciente>();
             TableQuery<PacienteEntity> query = new TableQuery<PacienteEntity>().Where
                 (
-                TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.NotEqual," ")
+                TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.NotEqual    , " ")
                 );            
                 
                 CacharPacientes();
@@ -95,7 +95,7 @@ namespace AutNutriYA{
 
                 IdentityUser user = new IdentityUser
                 {
-                    UserName = model.Correo,
+                    UserName = model.NombrePac,
                     Email = model.Correo
                 };
 
@@ -247,18 +247,4 @@ namespace AutNutriYA{
 
         }
     }
-
-    public interface IPacientesRepository{
-
-        List<Paciente> LeerPaciente();
-        void AgregarPacienteANutriologo(Paciente model);
-        bool CrearPaciente(Paciente model);
-        bool ActualizarPaciente(Paciente Paci);
-        bool BorrarPaciente(Paciente Paci);
-        Paciente LeerPorPKRK(string PK, string RK);
-        CloudTable ReferenciaTabla(string nombreTabla);
-
-    }
-
-
 }

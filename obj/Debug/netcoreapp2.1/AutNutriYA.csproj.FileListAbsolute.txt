@@ -54,3 +54,13 @@ C:\Users\chuy_\Documents\Jicamon\Moya\AutNutriYA\obj\Debug\netcoreapp2.1\Razor\V
 C:\Users\chuy_\Documents\Jicamon\Moya\AutNutriYA\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_LayoutAdmin.g.cshtml.cs
 C:\Users\chuy_\Documents\Jicamon\Moya\AutNutriYA\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_LayoutNutriologo.g.cshtml.cs
 C:\Users\chuy_\Documents\Jicamon\Moya\AutNutriYA\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_LayoutPaciente.g.cshtml.cs
+C:\Users\chuy_\Documents\Jicamon\Moya\AutNutriYA\obj\Debug\netcoreapp2.1\Razor\Views\Dietas\Create.g.cshtml.cs
+C:\Users\chuy_\Documents\Jicamon\Moya\AutNutriYA\obj\Debug\netcoreapp2.1\Razor\Views\Dietas\Delete.g.cshtml.cs
+C:\Users\chuy_\Documents\Jicamon\Moya\AutNutriYA\obj\Debug\netcoreapp2.1\Razor\Views\Dietas\Details.g.cshtml.cs
+C:\Users\chuy_\Documents\Jicamon\Moya\AutNutriYA\obj\Debug\netcoreapp2.1\Razor\Views\Dietas\Edit.g.cshtml.cs
+C:\Users\chuy_\Documents\Jicamon\Moya\AutNutriYA\obj\Debug\netcoreapp2.1\Razor\Views\Dietas\Index.g.cshtml.cs
+C:\Users\chuy_\Documents\Jicamon\Moya\AutNutriYA\obj\Debug\netcoreapp2.1\Razor\Views\Platillos\Create.g.cshtml.cs
+C:\Users\chuy_\Documents\Jicamon\Moya\AutNutriYA\obj\Debug\netcoreapp2.1\Razor\Views\Platillos\Delete.g.cshtml.cs
+C:\Users\chuy_\Documents\Jicamon\Moya\AutNutriYA\obj\Debug\netcoreapp2.1\Razor\Views\Platillos\Details.g.cshtml.cs
+C:\Users\chuy_\Documents\Jicamon\Moya\AutNutriYA\obj\Debug\netcoreapp2.1\Razor\Views\Platillos\Edit.g.cshtml.cs
+C:\Users\chuy_\Documents\Jicamon\Moya\AutNutriYA\obj\Debug\netcoreapp2.1\Razor\Views\Platillos\Index.g.cshtml.cs

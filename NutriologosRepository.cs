@@ -145,7 +145,7 @@ namespace AutNutriYA{
                 };
 
                 IdentityResult result = uManager.CreateAsync(user, "Contraseña12!").Result;
-
+                //uManager.CheckPasswordAsync(, "Contraseña12!");
                 if(result.Succeeded)
                 {
                     uManager.AddToRoleAsync(user, "Nutriologo").Wait();
@@ -154,6 +154,8 @@ namespace AutNutriYA{
             }
 
         }
+
+        
 
         
         public CloudTable ReferenciaTabla(string nombreTabla){

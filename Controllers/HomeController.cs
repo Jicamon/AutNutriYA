@@ -15,6 +15,9 @@ namespace AutNutriYA.Controllers
             return View();
         }
 
+        string cs = "Data Source=" + Environment.CurrentDirectory + "app.db";
+
+        //using (SQLite)
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";

@@ -63,7 +63,7 @@ using AutNutriYA.Models;
             WriteLiteral("\r\n<h2>Mis Paciente</h2>\r\n\r\n<p>\r\n    ");
             EndContext();
             BeginContext(120, 41, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c082336be75543ec815bdc209e7ffcf8", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6285aaed54b64fcb89e761dc970752fd", async() => {
                 BeginContext(143, 14, true);
                 WriteLiteral("Nuevo Paciente");
                 EndContext();
