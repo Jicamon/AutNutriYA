@@ -54,6 +54,18 @@
                 <span asp-validation-for="Cena" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Bebida1" class="control-label"></label>
+                <input type = "hidden" name = "Bebida1" value = "@Model.Bebida1"/>
+                @Html.DisplayFor(model => model.Bebida1)
+                <span asp-validation-for="Bebida1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bebida2" class="control-label"></label>
+                <input type = "hidden" name = "Bebida2" value = "@Model.Bebida2"/>
+                @Html.DisplayFor(model => model.Bebida2)
+                <span asp-validation-for="Bebida2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Delete" class="btn btn-default" />
             </div>
         </form>

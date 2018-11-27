@@ -83,6 +83,8 @@ namespace AutNutriYA.Controllers
                 p.Comida     = model.Comida;
                 p.ColacionT  = model.ColacionT;
                 p.Cena       = model.Cena;
+                p.Bebida1    = model.Bebida1;
+                p.Bebida2    = model.Bebida2;
 
                 var resultado = repo.ActualizarDieta(p);;
                 System.Threading.Thread.Sleep(500);

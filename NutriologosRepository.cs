@@ -25,7 +25,6 @@ namespace AutNutriYA{
                 CacharNutriologos();
 
                 async void CacharNutriologos(){
-                var list = new List<PacienteEntity>();
                 var tk = new TableContinuationToken();
                 foreach (NutriologoEntity entity in await Table.ExecuteQuerySegmentedAsync(query,tk)){
                     
@@ -111,7 +110,7 @@ namespace AutNutriYA{
                     if (editEntity != null)
                     {
                         editEntity.Pacientes = Nutriologo.Pacientes;
-                        editEntity.Telefono = Nutriologo.Telefono;
+                        editEntity.Telefono  = Nutriologo.Telefono;
                         editEntity.Direccion = Nutriologo.Direccion;
                         editEntity.newNombre = Nutriologo.Nombre;
                         editEntity.newCorreo = Nutriologo.Correo;

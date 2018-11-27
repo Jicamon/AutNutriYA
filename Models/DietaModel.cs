@@ -11,9 +11,11 @@ namespace AutNutriYA{
         public string Comida{get; set;}
         public string ColacionT{get; set;}
         public string Cena{get; set;}
+        public string Bebida1 { get; set; }
+        public string Bebida2 { get; set; }
 
         public Dieta(){}
-        public Dieta(string Nombre, string Dia, string Desayuno, string ColacionM, string Comida, string ColacionT,string Cena){
+        public Dieta(string Nombre, string Dia, string Desayuno, string ColacionM, string Comida, string ColacionT,string Cena, string Bebida1, string Bebida2){
             
             this.Nombre = Nombre;
             this.Dia = Dia;
@@ -22,6 +24,8 @@ namespace AutNutriYA{
             this.Comida = Comida;
             this.ColacionT = ColacionT;
             this.Cena = Cena;
+            this.Bebida1=Bebida1;
+            this.Bebida2=Bebida2;
             
         }
     }

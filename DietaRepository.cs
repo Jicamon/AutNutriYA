@@ -32,7 +32,9 @@ namespace AutNutriYA{
                         entity.ColacionM,
                         entity.Comida,
                         entity.ColacionT,
-                        entity.Cena));
+                        entity.Cena,
+                        entity.Bebida1,
+                        entity.Bebida2));
                 }
             }
 
@@ -43,7 +45,7 @@ namespace AutNutriYA{
         public bool CrearDieta(Dieta model){
             var Table = ReferenciaTabla("Dietas");
 
-            Table.ExecuteAsync(TableOperation.Insert(new DietaEntity(model.Nombre,model.Dia,model.Desayuno,model.ColacionM,model.Comida,model.ColacionT,model.Cena)));
+            Table.ExecuteAsync(TableOperation.Insert(new DietaEntity(model.Nombre,model.Dia,model.Desayuno,model.ColacionM,model.Comida,model.ColacionT,model.Cena, model.Bebida1, model.Bebida2)));
 
             return true;
         }
@@ -65,6 +67,8 @@ namespace AutNutriYA{
                         editEntity.Comida     = dieta.Comida;
                         editEntity.ColacionT  = dieta.ColacionT;
                         editEntity.Cena       = dieta.Cena;
+                        editEntity.Bebida1    = dieta.Bebida1;
+                        editEntity.Bebida2    = dieta.Bebida2;
 
                         TableOperation editOperation = TableOperation.Replace(editEntity);
 
@@ -113,7 +117,9 @@ namespace AutNutriYA{
                         TempD.ColacionM,
                         TempD.Comida,
                         TempD.ColacionT,
-                        TempD.Cena);
+                        TempD.Cena,
+                        TempD.Bebida1,
+                        TempD.Bebida2);
                     DietaFin = DietaTmp;
                 }
                System.Threading.Thread.Sleep(200);
@@ -134,7 +140,7 @@ namespace AutNutriYA{
         {
             public DietaEntity() {}
 
-            public DietaEntity(string Nombre, string Dia, string Desayuno, string ColacionM, string Comida, string ColacionT, string Cena){
+            public DietaEntity(string Nombre, string Dia, string Desayuno, string ColacionM, string Comida, string ColacionT, string Cena, string Bebida1, string Bebida2){
                 
                 PartitionKey = Nombre;
                 RowKey = Dia;
@@ -143,6 +149,8 @@ namespace AutNutriYA{
                 this.Comida = Comida;
                 this.ColacionT = ColacionT;
                 this.Cena = Cena;
+                this.Bebida1=Bebida1;
+                this.Bebida2=Bebida2;
             }
 
             public string Nombre => PartitionKey;
@@ -152,8 +160,10 @@ namespace AutNutriYA{
             public string Comida{get; set;}
             public string ColacionT{get; set;}
             public string Cena{get; set;}
+            public string Bebida1 { get; set; }
+            public string Bebida2 { get; set; }
 
-            public override string ToString() => $"{Nombre}{Dia}{Desayuno}{ColacionM}{Comida}{ColacionT}{Cena}";
+            public override string ToString() => $"{Nombre}{Dia}{Desayuno}{ColacionM}{Comida}{ColacionT}{Cena}{Bebida1}{Bebida2}";
 
         }
     
