@@ -95,7 +95,7 @@ namespace AutNutriYA{
 
                 IdentityUser user = new IdentityUser
                 {
-                    UserName = model.NombrePac,
+                    UserName = model.Correo,
                     Email = model.Correo
                 };
 
