@@ -1,0 +1,81 @@
+@model IEnumerable<AutNutriYA.Recordatorio>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.platilloDesayuno)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.porcionDes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.platilloComida)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.porcionCom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.platilloCena)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.porcionCena)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.comentario)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.platilloDesayuno)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.porcionDes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.platilloComida)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.porcionCom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.platilloCena)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.porcionCena)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.comentario)
+            </td>
+            <td>
+                <a href="Recordatorio/Details?PK=@item.Nombre&RK=@item.Dia"><img src="~/images/Detalles.png" width="25" height="25"></a> 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

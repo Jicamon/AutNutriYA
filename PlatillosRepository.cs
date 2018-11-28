@@ -125,28 +125,27 @@ namespace AutNutriYA{
     }
 
     public class PlatilloEntity : TableEntity
+    {
+        public PlatilloEntity() { }
+
+        public PlatilloEntity(string tipo,string Platillo, double Calorias, string Ingredientes, double porcion)
         {
-            public PlatilloEntity() { }
-
-            public PlatilloEntity(string tipo,string Platillo, double Calorias, string Ingredientes, double porcion)
-            {
                 
-                PartitionKey = tipo;
-                RowKey = Platillo;
-                this.Calorias = Calorias;
-                this.Ingredientes = Ingredientes;
-                this.porcion = porcion;
-            }
-
-            public string tipo => PartitionKey;
-            public string Platillo => RowKey;
-            public string Ingredientes { get; set; }
-            public double Calorias { get; set; }
-            public double porcion { get; set; }
-
-            public override string ToString() => $"{tipo}{Platillo}{Calorias}{Ingredientes}{porcion}";
-
+            PartitionKey = tipo;
+            RowKey = Platillo;
+            this.Calorias = Calorias;
+            this.Ingredientes = Ingredientes;
+            this.porcion = porcion;
         }
+        public string tipo => PartitionKey;
+        public string Platillo => RowKey;
+        public string Ingredientes { get; set; }
+        public double Calorias { get; set; }
+        public double porcion { get; set; }
+
+        public override string ToString() => $"{tipo}{Platillo}{Calorias}{Ingredientes}{porcion}";
+
+    }
     
         
 }
