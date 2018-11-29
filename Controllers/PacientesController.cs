@@ -137,7 +137,7 @@ namespace AutNutriYA.Controllers
                 return NotFound();
             }
                 
-                var resultado = repo.BorrarPaciente(pacienteN);
+                repo.BorrarPaciente(NombreNut,Correo);
                 System.Threading.Thread.Sleep(1000);
                 return RedirectToAction(nameof(Index));
             
