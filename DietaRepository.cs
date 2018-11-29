@@ -34,7 +34,8 @@ namespace AutNutriYA{
                         entity.ColacionT,
                         entity.Cena,
                         entity.Bebida1,
-                        entity.Bebida2));
+                        entity.Bebida2,
+                        entity.Bebida3));
                 }
             }
 
@@ -45,7 +46,7 @@ namespace AutNutriYA{
         public bool CrearDieta(Dieta model){
             var Table = ReferenciaTabla("Dietas");
 
-            Table.ExecuteAsync(TableOperation.Insert(new DietaEntity(model.Nombre,model.Dia,model.Desayuno,model.ColacionM,model.Comida,model.ColacionT,model.Cena, model.Bebida1, model.Bebida2)));
+            Table.ExecuteAsync(TableOperation.Insert(new DietaEntity(model.Nombre,model.Dia,model.Desayuno,model.ColacionM,model.Comida,model.ColacionT,model.Cena, model.Bebida1, model.Bebida2, model.Bebida3)));
 
             return true;
         }
@@ -69,6 +70,7 @@ namespace AutNutriYA{
                         editEntity.Cena       = dieta.Cena;
                         editEntity.Bebida1    = dieta.Bebida1;
                         editEntity.Bebida2    = dieta.Bebida2;
+                        editEntity.Bebida3    = dieta.Bebida3;
 
                         TableOperation editOperation = TableOperation.Replace(editEntity);
 
@@ -96,6 +98,41 @@ namespace AutNutriYA{
 
         }
 
+        public Dieta LeerDieta(string correo){
+            Dieta dieta = new Dieta();
+            DietaEntity dieta2 = new DietaEntity();
+            var Table = ReferenciaTabla("Dieta");
+            TableQuery<DietaEntity> query = new TableQuery<DietaEntity>().Where(
+                TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, correo));
+            System.Threading.Thread.Sleep(1000);
+            CacharDieta();
+            async void CacharDieta(){
+                var list = new List<DietaEntity>();
+                var tk = new TableContinuationToken();
+                foreach (DietaEntity entity in await Table.ExecuteQuerySegmentedAsync(query, tk)){
+                    
+                    var newDieta2 = new Dieta(
+                        entity.PartitionKey, 
+                        entity.RowKey,
+                        entity.Desayuno,
+                        entity.ColacionM,
+                        entity.Comida,
+                        entity.ColacionT,
+                        entity.Cena,
+                        entity.Bebida1,
+                        entity.Bebida2,
+                        entity.Bebida3);
+
+                    dieta = newDieta2;
+                    
+
+                }
+            }
+            System.Threading.Thread.Sleep(500);
+            return dieta;
+            
+            
+        }
         public Dieta LeerPorPKRK(string PK, string RK)
             {
                 
@@ -119,7 +156,8 @@ namespace AutNutriYA{
                         TempD.ColacionT,
                         TempD.Cena,
                         TempD.Bebida1,
-                        TempD.Bebida2);
+                        TempD.Bebida2,
+                        TempD.Bebida3);
                     DietaFin = DietaTmp;
                 }
                System.Threading.Thread.Sleep(200);
@@ -140,7 +178,7 @@ namespace AutNutriYA{
         {
             public DietaEntity() {}
 
-            public DietaEntity(string Nombre, string Dia, string Desayuno, string ColacionM, string Comida, string ColacionT, string Cena, string Bebida1, string Bebida2){
+            public DietaEntity(string Nombre, string Dia, string Desayuno, string ColacionM, string Comida, string ColacionT, string Cena, string Bebida1, string Bebida2, string Bebida3){
                 
                 PartitionKey = Nombre;
                 RowKey = Dia;
@@ -151,6 +189,7 @@ namespace AutNutriYA{
                 this.Cena = Cena;
                 this.Bebida1=Bebida1;
                 this.Bebida2=Bebida2;
+                this.Bebida3=Bebida3;
             }
 
             public string Nombre => PartitionKey;
@@ -162,8 +201,9 @@ namespace AutNutriYA{
             public string Cena{get; set;}
             public string Bebida1 { get; set; }
             public string Bebida2 { get; set; }
+            public string Bebida3 { get; set; }
 
-            public override string ToString() => $"{Nombre}{Dia}{Desayuno}{ColacionM}{Comida}{ColacionT}{Cena}{Bebida1}{Bebida2}";
+            public override string ToString() => $"{Nombre}{Dia}{Desayuno}{ColacionM}{Comida}{ColacionT}{Cena}{Bebida1}{Bebida2}{Bebida3}";
 
         }
     

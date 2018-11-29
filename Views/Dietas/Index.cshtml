@@ -22,22 +22,25 @@
                 @Html.DisplayNameFor(model => model.Desayuno)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ColacionM)
+                Bebida para el desayuno
+            </th>
+            <th>
+                Colacion de la Mañana
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Comida)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ColacionT)
+                Bebida para la comida
+            </th>
+            <th>
+                Colacion de la Tarde
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Cena)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Bebida1)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Bebida2)
+                Bebida para cenar
             </th>
             <th></th>
         </tr>
@@ -55,10 +58,16 @@
                 @Html.DisplayFor(modelItem => item.Desayuno)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Bebida1)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.ColacionM)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Comida)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bebida2)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ColacionT)
@@ -67,10 +76,7 @@
                 @Html.DisplayFor(modelItem => item.Cena)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Bebida1)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Bebida2)
+                @Html.DisplayFor(modelItem => item.Bebida3)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { PK=item.Nombre, RK=item.Dia }) |

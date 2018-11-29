@@ -44,6 +44,18 @@ namespace AutNutriYA.Controllers
             return model;
         }
 
+        [HttpGet("GetDieta/{RK}")]
+        public ActionResult<Dieta> Get(string RK)
+        {
+            System.Threading.Thread.Sleep(1000);
+            var model = repo.LeerDieta(RK);
+            System.Threading.Thread.Sleep(1000);
+            if(model == null){
+                return NotFound();
+            }
+            return model;
+        }
+
         // POST: api/DietasApi
         /* 
         usas este link
