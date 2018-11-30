@@ -1,10 +1,10 @@
 @model AutNutriYA.Ingrediente
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Borrar";
 }
 
-<h2>Delete</h2>
+<h2>Borrar</h2>
 
 <h4>Ingrediente</h4>
 <hr />
@@ -25,12 +25,12 @@
                 <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Delete" class="btn btn-default" />
+                <input type="submit" value="Borrar" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver a Ingredientes</a>
 </div>

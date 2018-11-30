@@ -1,10 +1,10 @@
 @model AutNutriYA.Platillo
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Agregar";
 }
 
-<h2>Create</h2>
+<h2>Agregar</h2>
 
 <h4>Platillo</h4>
 <hr />
@@ -13,38 +13,38 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="tipo" class="control-label"></label>
+                <label asp-for="tipo" class="control-label">Tipo</label>
                 <input asp-for="tipo" class="form-control" />
                 <span asp-validation-for="tipo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="platillo" class="control-label"></label>
+                <label asp-for="platillo" class="control-label">Platillo</label>
                 <input asp-for="platillo" class="form-control" />
                 <span asp-validation-for="platillo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ingredientes" class="control-label"></label>
+                <label asp-for="ingredientes" class="control-label">Ingredientes</label>
                 <input asp-for="ingredientes" class="form-control" />
                 <span asp-validation-for="ingredientes" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="calorias" class="control-label"></label>
+                <label asp-for="calorias" class="control-label">Calorias</label>
                 <input asp-for="calorias" class="form-control" />
                 <span asp-validation-for="calorias" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="porcion" class="control-label"></label>
+                <label asp-for="porcion" class="control-label">Porcion</label>
                 <input asp-for="porcion" class="form-control" />
                 <span asp-validation-for="porcion" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Agregar" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver a Platillos</a>
 </div>
 

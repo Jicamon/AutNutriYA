@@ -1,41 +1,41 @@
 @model AutNutriYA.Platillo
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles";
 }
 
-<h2>Details</h2>
+<h2>Detalles</h2>
 
 <div>
     <h4>Platillo</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.tipo)
+            Tipo<!--@Html.DisplayNameFor(model => model.tipo)-->
         </dt>
         <dd>
             @Html.DisplayFor(model => model.tipo)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.platillo)
+            Platillo<!--@Html.DisplayNameFor(model => model.platillo)-->
         </dt>
         <dd>
             @Html.DisplayFor(model => model.platillo)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ingredientes)
+            Ingredientes<!--@Html.DisplayNameFor(model => model.ingredientes)-->
         </dt>
         <dd>
             @Html.DisplayFor(model => model.ingredientes)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.calorias)
+            Calorias<!--@Html.DisplayNameFor(model => model.calorias)-->
         </dt>
         <dd>
             @Html.DisplayFor(model => model.calorias)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.porcion)
+            Porcion<!--@Html.DisplayNameFor(model => model.porcion)-->
         </dt>
         <dd>
             @Html.DisplayFor(model => model.porcion)
@@ -43,6 +43,6 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { PK = Model.tipo, RK = Model.platillo }) |
-    <a asp-action="Index">Back to List</a>
+    @Html.ActionLink("Editar", "Edit", new { PK = Model.tipo, RK = Model.platillo }) |
+    <a asp-action="Index">Volver a Platillos</a>
 </div>

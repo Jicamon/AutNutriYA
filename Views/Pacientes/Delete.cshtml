@@ -1,12 +1,12 @@
 @model AutNutriYA.Paciente
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Borrar Paciente";
 }
 
-<h2>Delete</h2>
+<h2>Borrar</h2>
 
-<h4>Nutriologo</h4>
+<h4>Paciente</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -55,12 +55,12 @@
                 <span asp-validation-for="CorreoNut" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Delete" class="btn btn-default" />
+                <input type="submit" value="Borrar" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver a Mis Pacientes</a>
 </div>

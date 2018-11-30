@@ -1,53 +1,53 @@
 @model AutNutriYA.Platillo
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Borrar";
 }
 
-<h2>Delete</h2>
+<h2>Borrar</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Platillo</h3>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Delete">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="tipo" class="control-label"></label>
+                <label asp-for="tipo" class="control-label">Tipo:</label>
                 <input type = "hidden" name = "tipo" value = "@Model.tipo"/>
                 @Html.DisplayFor(model => model.tipo)
                 <span asp-validation-for="tipo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="platillo" class="control-label"></label>
+                <label asp-for="platillo" class="control-label">Platillo:</label>
                 <input type = "hidden" name = "platillo" value = "@Model.platillo"/>
                 @Html.DisplayFor(model => model.platillo)
                 <span asp-validation-for="platillo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="calorias" class="control-label"></label>
+                <label asp-for="calorias" class="control-label">Calorias:</label>
                 <input type = "hidden" name = "calorias" value = "@Model.calorias"/>
                 @Html.DisplayFor(model => model.calorias)
                 <span asp-validation-for="calorias" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ingredientes" class="control-label"></label>
+                <label asp-for="ingredientes" class="control-label">Ingredientes:</label>
                 <input type = "hidden" name = "ingredientes" value = "@Model.ingredientes"/>
                 @Html.DisplayFor(model => model.ingredientes)
                 <span asp-validation-for="ingredientes" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="porcion" class="control-label"></label>
+                <label asp-for="porcion" class="control-label">Porcion:</label>
                 <input type = "hidden" name = "porcion" value = "@Model.porcion"/>
                 @Html.DisplayFor(model => model.porcion)
                 <span asp-validation-for="porcion" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Delete" class="btn btn-default" />
+                <input type="submit" value="Borrar" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver a Platillos</a>
 </div>

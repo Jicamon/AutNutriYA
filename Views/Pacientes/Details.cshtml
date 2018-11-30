@@ -1,10 +1,10 @@
 @model AutNutriYA.Paciente
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles";
 }
 
-<h2>Details</h2>
+<h2>Detalles</h2>
 
 <div>
     <h4>Paciente</h4>
@@ -61,6 +61,6 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { PK = Model.NombreNut, RK = Model.Correo }) |
-    <a asp-action="Index">Back to List</a>
+    @Html.ActionLink("Editar", "Edit", new { PK = Model.NombreNut, RK = Model.Correo }) |
+    <a asp-action="Index">Volver a Mis Pacientes</a>
 </div>
