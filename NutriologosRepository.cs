@@ -45,7 +45,7 @@ namespace AutNutriYA{
                 
             var Table = ReferenciaTabla("Nutriologo");
             Nutriologo nutriologo= new Nutriologo();
-            TableOperation retrieveOperation = TableOperation.Retrieve<NutriologoEntity>(correo, null);
+            TableOperation retrieveOperation = TableOperation.Retrieve<NutriologoEntity>(correo, nombre);
 
             CacharNutriologo();
             async void CacharNutriologo(){

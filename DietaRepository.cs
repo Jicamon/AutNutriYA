@@ -98,16 +98,17 @@ namespace AutNutriYA{
 
         }
 
-        public Dieta LeerDieta(string correo){
+        public List<Dieta> LeerDieta(string correo){
             Dieta dieta = new Dieta();
+            var list = new List<Dieta>();
             DietaEntity dieta2 = new DietaEntity();
-            var Table = ReferenciaTabla("Dieta");
+            var Table = ReferenciaTabla("Dietas");
             TableQuery<DietaEntity> query = new TableQuery<DietaEntity>().Where(
                 TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, correo));
             System.Threading.Thread.Sleep(1000);
             CacharDieta();
             async void CacharDieta(){
-                var list = new List<DietaEntity>();
+                
                 var tk = new TableContinuationToken();
                 foreach (DietaEntity entity in await Table.ExecuteQuerySegmentedAsync(query, tk)){
                     
@@ -123,13 +124,13 @@ namespace AutNutriYA{
                         entity.Bebida2,
                         entity.Bebida3);
 
-                    dieta = newDieta2;
+                    list.Add(newDieta2);
                     
 
                 }
             }
             System.Threading.Thread.Sleep(500);
-            return dieta;
+            return list;
             
             
         }

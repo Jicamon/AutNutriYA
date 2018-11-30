@@ -93,7 +93,7 @@ namespace AutNutriYA.Controllers
                 return NotFound();
             }
 
-            var pack = repo.LeerPorPKRK(model.NombreNut, model.Correo);
+            var pack = repo.LeerPorPKRK(model.CorreoNut, model.Correo);
 
             try
             {
@@ -106,6 +106,7 @@ namespace AutNutriYA.Controllers
                 pack.IMC = model.IMC;
                 pack.CorreoNut = model.CorreoNut;
 
+                System.Threading.Thread.Sleep(1000);
                 var resultado = repo.ActualizarPaciente(pack);
                 System.Threading.Thread.Sleep(500);
                 return RedirectToAction(nameof(Index));

@@ -44,11 +44,11 @@ namespace AutNutriYA.Controllers
             return model;
         }
 
-        [HttpGet("GetDieta/{RK}")]
-        public ActionResult<Dieta> Get(string RK)
+        [HttpGet("GetDietas/{PK}")]
+        public ActionResult<List<Dieta>> Get(string PK)
         {
             System.Threading.Thread.Sleep(1000);
-            var model = repo.LeerDieta(RK);
+            var model = repo.LeerDieta(PK);
             System.Threading.Thread.Sleep(1000);
             if(model == null){
                 return NotFound();

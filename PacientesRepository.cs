@@ -132,8 +132,8 @@ namespace AutNutriYA{
 
             var Table = ReferenciaTabla("Pacientes");
 
-            TableOperation retrieveOperation = TableOperation.Retrieve<PacienteEntity>(Paci.NombreNut,Paci.NombrePac);
-            //System.Threading.Thread.Sleep(500);
+            TableOperation retrieveOperation = TableOperation.Retrieve<PacienteEntity>(Paci.NombreNut,Paci.Correo);
+            System.Threading.Thread.Sleep(2000);
             EditarPaciente();
                 async void EditarPaciente(){
                     TableResult retrievedResult = await Table.ExecuteAsync(retrieveOperation);
@@ -158,7 +158,7 @@ namespace AutNutriYA{
 
         public bool BorrarPaciente(Paciente Paci){
             var Table = ReferenciaTabla("Pacientes");
-            TableOperation retrieveOperation = TableOperation.Retrieve<PacienteEntity>(Paci.NombreNut, Paci.NombrePac);
+            TableOperation retrieveOperation = TableOperation.Retrieve<PacienteEntity>(Paci.NombreNut, Paci.Correo);
             EliminarPaciente();
             async void EliminarPaciente(){
                 TableResult retrievedResult = await Table.ExecuteAsync(retrieveOperation);
