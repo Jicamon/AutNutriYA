@@ -103,10 +103,11 @@ namespace AutNutriYA.Controllers
                 pack.Edad = model.Edad; 
                 pack.Altura = model.Altura;
                 pack.Peso = model.Peso;
+                pack.IMC = model.IMC;
                 pack.CorreoNut = model.CorreoNut;
 
                 var resultado = repo.ActualizarPaciente(pack);
-                System.Threading.Thread.Sleep(800);
+                System.Threading.Thread.Sleep(500);
                 return RedirectToAction(nameof(Index));
             }
             catch

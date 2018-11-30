@@ -133,19 +133,18 @@ namespace AutNutriYA{
             var Table = ReferenciaTabla("Pacientes");
 
             TableOperation retrieveOperation = TableOperation.Retrieve<PacienteEntity>(Paci.NombreNut,Paci.NombrePac);
-
-            EditarNutriologo();
-                async void EditarNutriologo(){
+            //System.Threading.Thread.Sleep(500);
+            EditarPaciente();
+                async void EditarPaciente(){
                     TableResult retrievedResult = await Table.ExecuteAsync(retrieveOperation);
                     PacienteEntity editEntity = (PacienteEntity)retrievedResult.Result;
                     if (editEntity != null)
                     {
-                        editEntity.NombreNut= Paci.NombreNut;
-                        editEntity.Correo   = Paci.Correo;
-                        editEntity.NombrePac= Paci.NombrePac;
-                        editEntity.Edad     = Paci.Edad;
-                        editEntity.Altura   = Paci.Altura;
-                        editEntity.Peso     = Paci.Peso;
+                        
+                        editEntity.NombrePac = Paci.NombrePac;
+                        editEntity.Edad      = Paci.Edad;
+                        editEntity.Altura    = Paci.Altura;
+                        editEntity.Peso      = Paci.Peso;
 
                         TableOperation editOperation = TableOperation.Replace(editEntity);
 
@@ -219,8 +218,8 @@ namespace AutNutriYA{
     public class PacienteEntity : TableEntity
     {
         public PacienteEntity() { }
-        public string NombreNut {get; set;}
-        public string Correo {get; set;}
+        public string NombreNut => PartitionKey;
+        public string Correo => RowKey;
         public string NombrePac {get; set;}
         public int Edad { get; set; }
         public int Altura { get; set; }
