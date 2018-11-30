@@ -89,6 +89,42 @@ namespace AutNutriYA{
 
             return true;
         }
+
+        public Paciente LeerPaciente(string correo){
+            Paciente paci = new Paciente();
+            var list = new List<Paciente>();
+            PacienteEntity paci2 = new PacienteEntity();
+            var Table = ReferenciaTabla("Pacientes");
+            TableQuery<PacienteEntity> query = new TableQuery<PacienteEntity>().Where(
+                TableQuery.GenerateFilterCondition("RowKey", QueryComparisons.Equal, correo));
+            System.Threading.Thread.Sleep(1000);
+            CacharPaciente();
+            async void CacharPaciente(){
+                
+                var tk = new TableContinuationToken();
+                foreach (PacienteEntity entity in await Table.ExecuteQuerySegmentedAsync(query, tk)){
+                    
+                    var newPaciente2 = new Paciente(
+                        entity.PartitionKey, 
+                        entity.RowKey,
+                        entity.NombrePac,
+                        entity.Edad,
+                        entity.Altura,
+                        entity.Peso,
+                        entity.IMC,
+                        entity.Alergias,
+                        entity.CorreoNut);
+
+                    paci=newPaciente2;
+                    
+
+                }
+            }
+            System.Threading.Thread.Sleep(500);
+            return paci;
+            
+            
+        }
         public void crearPacienteLOGIN(UserManager<IdentityUser> uManager, Paciente model){
 
             if (uManager.FindByEmailAsync(model.Correo).Result == null){

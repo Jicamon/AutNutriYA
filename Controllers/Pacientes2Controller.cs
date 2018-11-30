@@ -44,6 +44,18 @@ namespace AutNutriYA.Controllers
             return model;
         }
 
+        [HttpGet("GetPacientes/{RK}")]
+        public ActionResult<Paciente> Get(string RK)
+        {
+            System.Threading.Thread.Sleep(1000);
+            var model = repo.LeerPaciente(RK);
+            System.Threading.Thread.Sleep(1000);
+            if(model == null){
+                return NotFound();
+            }
+            return model;
+        }
+
         /* 
         usas este link
         api/Pacientes2/PostPacientes        
