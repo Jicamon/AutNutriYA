@@ -214,6 +214,7 @@ namespace AutNutriYA{
                         editEntity.Edad      = Paci.Edad;
                         editEntity.Altura    = Paci.Altura;
                         editEntity.Peso      = Paci.Peso;
+                        editEntity.Alergias  = Paci.Alergias;
 
                         TableOperation editOperation = TableOperation.Replace(editEntity);
 

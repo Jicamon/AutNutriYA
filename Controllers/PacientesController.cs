@@ -105,6 +105,7 @@ namespace AutNutriYA.Controllers
                 pack.Altura = model.Altura;
                 pack.Peso = model.Peso;
                 pack.IMC = model.IMC;
+                pack.Alergias = model.Alergias;
                 pack.CorreoNut = model.CorreoNut;
 
                 System.Threading.Thread.Sleep(1000);
