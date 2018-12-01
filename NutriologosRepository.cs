@@ -150,7 +150,7 @@ namespace AutNutriYA{
 
         }
 
-        public bool CrearNutriologo(Nutriologo model, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager){
+        public bool CrearNutriologo(Nutriologo model, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, string contrasena){
             
 
             
@@ -158,12 +158,12 @@ namespace AutNutriYA{
             var StorageAccount = new CloudStorageAccount(new StorageCredentials(STORAGEACCOUNTNAME,ACCOUNTKEY),false);
             var tableClient = StorageAccount.CreateCloudTableClient();
             var Table = tableClient.GetTableReference("Nutriologo");
-            crearNutriologoLOGIN(userManager, model);
+            crearNutriologoLOGIN(userManager, model, contrasena);
             Table.ExecuteAsync(TableOperation.Insert(new NutriologoEntity(model.Correo,model.Nombre,model.Telefono,model.Direccion)));
 
             return true;
         }
-        public void crearNutriologoLOGIN(UserManager<IdentityUser> uManager, Nutriologo model){
+        public void crearNutriologoLOGIN(UserManager<IdentityUser> uManager, Nutriologo model, string contrasena){
 
             if (uManager.FindByEmailAsync(model.Correo).Result == null){
 
@@ -173,7 +173,7 @@ namespace AutNutriYA{
                     Email = model.Correo
                 };
 
-                IdentityResult result = uManager.CreateAsync(user, "Contraseña12!").Result;
+                IdentityResult result = uManager.CreateAsync(user, contrasena).Result;
 
                 if(result.Succeeded)
                 {

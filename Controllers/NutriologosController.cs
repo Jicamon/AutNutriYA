@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using AutNutriYA.Models;
 
 namespace AutNutriYA.Controllers
 {
@@ -21,7 +22,6 @@ namespace AutNutriYA.Controllers
             this._rManager = roleManager;
             this._uManager = userManager;
         }
-        
         // GET: Nutriologo
         NutriologosRepository repo = new NutriologosRepository();
         public ActionResult Index()
@@ -29,6 +29,7 @@ namespace AutNutriYA.Controllers
             List<Nutriologo> model = repo.LeerNutriologos();
             System.Threading.Thread.Sleep(800);
             return View(model);
+            
         }
 
         // GET: Nutriologo/Details/5
@@ -51,12 +52,13 @@ namespace AutNutriYA.Controllers
         // POST: Nutriologo/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Nutriologo model)
+        public ActionResult Create(Nutriologo model, string contrasena)
         {
             try
             {
-                var resultado = repo.CrearNutriologo(model,_uManager, _rManager);
+                var resultado = repo.CrearNutriologo(model,_uManager, _rManager, contrasena);
                 return RedirectToAction(nameof(Index));
+                
             }
             catch
             {

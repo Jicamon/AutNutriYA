@@ -51,6 +51,39 @@ namespace AutNutriYA{
             return Pacientes;
         }
 
+        public List<Paciente> LeerPacientes(string pk){
+            var Table = ReferenciaTabla("Pacientes");
+            List<Paciente> Pacientes = new List<Paciente>();
+            TableQuery<PacienteEntity> query = new TableQuery<PacienteEntity>().Where
+                (
+                TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, pk)
+                );            
+                
+                CacharPacientes();
+                
+               
+                
+                async void CacharPacientes(){
+                var list = new List<PacienteEntity>();
+                var tk = new TableContinuationToken();
+                foreach (PacienteEntity entity in await Table.ExecuteQuerySegmentedAsync(query,tk)){
+                    
+                    Pacientes.Add(new Paciente(
+                        entity.PartitionKey, 
+                        entity.RowKey,
+                        entity.NombrePac, 
+                        entity.Edad,
+                        entity.Altura,
+                        entity.Peso,
+                        entity.IMC,
+                        entity.Alergias,
+                        entity.CorreoNut));
+                }
+            }
+
+            
+            return Pacientes;
+        }
         public void AgregarPacienteANutriologo(Paciente model)
         {
             var Table = ReferenciaTabla("Nutriologos");
@@ -81,10 +114,10 @@ namespace AutNutriYA{
             Table.ExecuteAsync(mergeOperation);
         }
 
-        public bool CrearPaciente(Paciente model, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager){
+        public bool CrearPaciente(Paciente model, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, string contrasena){
             var Table = ReferenciaTabla("Pacientes");
 
-            crearPacienteLOGIN(userManager ,model);
+            crearPacienteLOGIN(userManager ,model, contrasena);
             Table.ExecuteAsync(TableOperation.Insert(new PacienteEntity(model.NombreNut,model.Correo,model.NombrePac,model.Edad,model.Altura,model.Peso,model.CorreoNut)));
 
             return true;
@@ -125,7 +158,7 @@ namespace AutNutriYA{
             
             
         }
-        public void crearPacienteLOGIN(UserManager<IdentityUser> uManager, Paciente model){
+        public void crearPacienteLOGIN(UserManager<IdentityUser> uManager, Paciente model, string contrasena){
 
             if (uManager.FindByEmailAsync(model.Correo).Result == null){
 
@@ -135,7 +168,7 @@ namespace AutNutriYA{
                     Email = model.Correo
                 };
 
-                IdentityResult result = uManager.CreateAsync(user, "Contraseña12!").Result;
+                IdentityResult result = uManager.CreateAsync(user, contrasena).Result;
 
                 if(result.Succeeded)
                 {

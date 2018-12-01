@@ -30,7 +30,8 @@ namespace AutNutriYA.Controllers
         // GET: Pacientes
         public ActionResult Index()
         {
-            List<Paciente> model = repo.LeerPaciente();
+            var partitionKey = _uManager.GetUserName(HttpContext.User);
+            List<Paciente> model = repo.LeerPacientes(partitionKey);
             System.Threading.Thread.Sleep(1000);
             return View(model);
         }
@@ -56,11 +57,11 @@ namespace AutNutriYA.Controllers
         // POST: Pacientes/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Paciente model)
+        public ActionResult Create(Paciente model, string contrasena)
         {
             try
             {
-                var resultado = repo.CrearPaciente(model, _uManager, _rManager);
+                var resultado = repo.CrearPaciente(model, _uManager, _rManager, contrasena);
                 //repo.AgregarPacienteANutriologo(model);
                 return RedirectToAction(nameof(Index));
 
