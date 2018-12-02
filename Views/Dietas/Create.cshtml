@@ -69,8 +69,8 @@
             <div class="form-group">
                 <label asp-for="Desayuno" class="control-label"></label><br>
                 <select class="form-control" asp-for="Desayuno">
+                    <option value="" disabled selected hidden>Seleccione el Desayuno</option>
                 @foreach (var item in Desayunos){
-                    <option class="form-control" value="@item.platillo" aria-placeholder="Seleccione un Dasayuno">
                         @Html.DisplayName(item.platillo)
                     </option>
                 }
@@ -80,6 +80,7 @@
             <div class="form-group">
                 <label asp-for="Bebida1" class="control-label">Bebida Desayuno</label><br>
                 <select class="form-control" asp-for="Bebida1">
+                    <option value="" disabled selected hidden>Seleccione una Bebida</option>
                 @foreach (var item in Bebidas){
                     <option class="form-control" value="@item.platillo">
                         @Html.DisplayName(item.platillo)
@@ -91,6 +92,7 @@
             <div class="form-group">
                 <label asp-for="ColacionM" class="control-label">Colacion Mañana</label><br>
                 <select class="form-control" asp-for="ColacionM">
+                    <option value="" disabled selected hidden>Seleccione una Colacion</option>
                 @foreach (var item in Colaciones){
                     <option class="form-control" value="@item.platillo">
                         @Html.DisplayName(item.platillo)
@@ -102,6 +104,7 @@
             <div class="form-group">
                 <label asp-for="Comida" class="control-label"></label><br>
                 <select class="form-control" asp-for="Comida">
+                    <option value="" disabled selected hidden>Seleccione la Comida</option>
                 @foreach (var item in Comidas){
                     <option class="form-control" value="@item.platillo">
                         @Html.DisplayName(item.platillo)
@@ -113,6 +116,7 @@
             <div class="form-group">
                 <label asp-for="Bebida2" class="control-label">Bebida Comida</label><br>
                 <select class="form-control" asp-for="Bebida2">
+                    <option value="" disabled selected hidden>Seleccione una Bebida</option>
                 @foreach (var item in Bebidas){
                     <option class="form-control" value="@item.platillo">
                         @Html.DisplayName(item.platillo)
@@ -124,6 +128,7 @@
             <div class="form-group">
                 <label asp-for="ColacionT" class="control-label">Colacion Tarde</label><br>
                 <select class="form-control" asp-for="ColacionT">
+                <option value="" disabled selected hidden>Seleccione una Colacion</option>
                 @foreach (var item in Colaciones){
                     <option class="form-control" value="@item.platillo">
                         @Html.DisplayName(item.platillo)
@@ -135,6 +140,7 @@
             <div class="form-group">
                 <label asp-for="Cena" class="control-label"></label><br>
                 <select class="form-control" asp-for="Cena">
+                    <option value="" disabled selected hidden>Seleccione la Cena</option>
                 @foreach (var item in Cenas){
                     <option class="form-control" value="@item.platillo">
                         @Html.DisplayName(item.platillo)
@@ -146,6 +152,7 @@
             <div class="form-group">
                 <label asp-for="Bebida3" class="control-label">Bebida Cena</label><br>
                 <select class="form-control" asp-for="Bebida3">
+                    <option value="" disabled selected hidden>Seleccione una Bebida</option>
                 @foreach (var item in Bebidas){
                     <option class="form-control" value="@item.platillo">
                         @Html.DisplayName(item.platillo)
