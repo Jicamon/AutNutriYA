@@ -1,10 +1,10 @@
 @model AutNutriYA.Nutriologo
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Borrar";
 }
 
-<h2>Delete</h2>
+<h2>Borrar</h2>
 
 <h4>Nutriologo</h4>
 <hr />
@@ -24,12 +24,12 @@
                 @Html.DisplayFor(model => model.Nombre)
                 <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
-            <div class="form-group">
+           <!-- <div class="form-group">
                 <label asp-for="Pacientes" class="control-label"></label>
                 <input type = "hidden" name = "Pacientes" value = "@Model.Pacientes"/>
                 @Html.DisplayFor(model => model.Pacientes)
                 <span asp-validation-for="Pacientes" class="text-danger"></span>
-            </div>
+            </div>-->
             <div class="form-group">
                 <label asp-for="Direccion" class="control-label"></label>
                 <input type = "hidden" name = "Telefono" value = "@Model.Telefono"/>
@@ -43,12 +43,12 @@
                 <span asp-validation-for="Telefono" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Delete" class="btn btn-default" />
+                <input type="submit" value="Borrar" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver a Nutriologos</a>
 </div>
