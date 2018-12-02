@@ -40,7 +40,17 @@ namespace AutNutriYA.Controllers
         [HttpPost("PostRecordatorios")]
         public ActionResult<bool> Post(Recordatorio recordatorio)
         {
+            System.Threading.Thread.Sleep(2500);
+            var exist=repo.existeAsync(recordatorio.Nombre,recordatorio.Dia);
+            if (exist.Result)
+            {
+                //var model = repo.LeerPorPKRK(recordatorio.Nombre, recordatorio.Dia);
+                System.Threading.Thread.Sleep(1000);
+                var resultado = repo.ActualizarRecordatorio(recordatorio);
+                return resultado;
+            }
             return repo.CrearRecordatorio(recordatorio);
+            
         }
 
         // PUT: api/Recordatorio2/5

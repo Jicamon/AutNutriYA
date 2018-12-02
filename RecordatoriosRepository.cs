@@ -4,6 +4,7 @@ using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Table;
 using Microsoft.WindowsAzure.Storage.Queue;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AutNutriYA{
     public class RecordatorioRepo{
@@ -50,11 +51,11 @@ namespace AutNutriYA{
             return true;
         }
 
-        /*public bool ActualizarRecordatorio(Recordatorio recordatorio)
+        public bool ActualizarRecordatorio(Recordatorio recordatorio)
         {
             var Table = ReferenciaTabla("Recordatorios");
 
-            TableOperation retrieveOperation = TableOperation.Retrieve<RecordatorioEntity>(recordatorio.tipo, recordatorio.platillo);
+            TableOperation retrieveOperation = TableOperation.Retrieve<RecordatorioEntity>(recordatorio.Nombre, recordatorio.Dia);
 
             EditarRecordatorio();
                 async void EditarRecordatorio(){
@@ -62,9 +63,13 @@ namespace AutNutriYA{
                     RecordatorioEntity editEntity = (RecordatorioEntity)retrievedResult.Result;
                     if (editEntity != null)
                     {
-                        editEntity.Ingredientes = recordatorio.ingredientes;
-                        editEntity.Calorias     = recordatorio.calorias;
-                        editEntity.porcion      = recordatorio.porcion;
+                        editEntity.platilloDesayuno  = recordatorio.platilloDesayuno;
+                        editEntity.porcionDes        = recordatorio.porcionDes;
+                        editEntity.platilloComida    = recordatorio.platilloComida;
+                        editEntity.porcionCom        = recordatorio.porcionCom;
+                        editEntity.platilloCena      = recordatorio.platilloCena;
+                        editEntity.porcionCena       = recordatorio.porcionCena;
+                        editEntity.comentario        = recordatorio.comentario;
 
                         TableOperation editOperation = TableOperation.Replace(editEntity);
 
@@ -74,7 +79,7 @@ namespace AutNutriYA{
                 }
 
             return true;
-        }*/
+        }
         
         public bool BorrarRecordatorio(Recordatorio recordatorio){
             var Table = ReferenciaTabla("Recordatorios");
@@ -92,6 +97,26 @@ namespace AutNutriYA{
 
         }
 
+        public async Task<bool> existeAsync(string PK, string RK){
+            bool res=true;
+            var Table = ReferenciaTabla("Recordatorios");
+
+            TableOperation retrieveOperation = TableOperation.Retrieve<RecordatorioEntity>(PK, RK);
+
+            System.Threading.Thread.Sleep(2500);
+            await CacharRecordatorio2();
+                
+            async Task<bool> CacharRecordatorio2(){
+                TableResult retrievedResult = await Table.ExecuteAsync(retrieveOperation);
+                if(retrievedResult.Result == null){
+                    res=false;
+                }
+                return res;
+
+            }
+            return res;
+        }
+
         public Recordatorio LeerPorPKRK(string PK, string RK){
                 
             Recordatorio RecordatorioFin = new Recordatorio();
@@ -100,7 +125,7 @@ namespace AutNutriYA{
             TableOperation retrieveOperation = TableOperation.Retrieve<RecordatorioEntity>(PK, RK);
 
             CacharRecordatorio();
-             System.Threading.Thread.Sleep(500);
+            System.Threading.Thread.Sleep(500);
                 
             async void CacharRecordatorio(){
                 TableResult retrievedResult = await Table.ExecuteAsync(retrieveOperation);
