@@ -2,6 +2,11 @@
 
 @{
     ViewData["Title"] = "Agregar";
+    List<SelectListItem> li = new List<SelectListItem>();
+    li.Add(new SelectListItem(){Text="perro", Value = "10"});
+    li.Add(new SelectListItem(){Text="Darunia", Value = "20"});
+    li.Add(new SelectListItem(){Text="Ruto", Value = "30"});
+    li.Add(new SelectListItem(){Text="Malon", Value = "40"});
 }
 
 <h2>Agregar</h2>
@@ -23,7 +28,7 @@
                 <span asp-validation-for="platillo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ingredientes" class="control-label">Ingredientes</label>
+                <label asp-for="ingredientes" class="control-label">Ingredientes</label><br>
                 <input asp-for="ingredientes" class="form-control" />
                 <span asp-validation-for="ingredientes" class="text-danger"></span>
             </div>

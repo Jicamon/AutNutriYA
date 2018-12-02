@@ -30,7 +30,8 @@ namespace AutNutriYA{
                         entity.RowKey,
                         entity.Calorias, 
                         entity.Ingredientes,
-                        entity.porcion));
+                        entity.porcion
+                    ));
                 }
             }
 
@@ -38,6 +39,62 @@ namespace AutNutriYA{
             return Platillos;
         }
         
+        public List<Platillo> LeerBebidas(){
+            var Table = ReferenciaTabla("Platillos");
+            List<Platillo> Bebidas = new List<Platillo>();
+            TableQuery<PlatilloEntity> query = new TableQuery<PlatilloEntity>().Where
+                (
+                TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal,"Bebida")
+                );            
+                
+                CacharBebidas();
+
+                async void CacharBebidas(){
+                var tk = new TableContinuationToken();
+                foreach (PlatilloEntity entity in await Table.ExecuteQuerySegmentedAsync(query,tk)){
+                    
+                    Bebidas.Add(new Platillo(
+                        entity.PartitionKey, 
+                        entity.RowKey,
+                        entity.Calorias, 
+                        entity.Ingredientes,
+                        entity.porcion
+                    ));
+                }
+            }
+
+            
+            return Bebidas;
+        }
+
+        public List<Platillo> LeerAlimentos(){
+            var Table = ReferenciaTabla("Platillos");
+            List<Platillo> Alimentos = new List<Platillo>();
+            TableQuery<PlatilloEntity> query = new TableQuery<PlatilloEntity>().Where
+                (
+                TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.NotEqual,"Bebida")
+                );            
+                
+                CacharAlimentos();
+
+                async void CacharAlimentos(){
+                var tk = new TableContinuationToken();
+                foreach (PlatilloEntity entity in await Table.ExecuteQuerySegmentedAsync(query,tk)){
+                    
+                    Alimentos.Add(new Platillo(
+                        entity.PartitionKey, 
+                        entity.RowKey,
+                        entity.Calorias, 
+                        entity.Ingredientes,
+                        entity.porcion
+                    ));
+                }
+            }
+
+            
+            return Alimentos;
+        }
+
         public bool CrearPlatillo(Platillo model){
             var Table = ReferenciaTabla("Platillos");
 
