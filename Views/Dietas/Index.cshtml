@@ -3,18 +3,15 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<h2>Index</h2>
+<h2>Dieta de @ViewData["Correo"]</h2> 
 
 <p>
-    <a asp-action="Create">Create New</a>
+     @Html.ActionLink("Crear Dieta", "Create", new { correo=ViewData["Correo"] })
+     <!--<a href="\Create?correo=@ViewData["Correo"]">Crear Dieta</a>-->
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nombre)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Dia)
             </th>
@@ -22,37 +19,35 @@
                 @Html.DisplayNameFor(model => model.Desayuno)
             </th>
             <th>
-                Bebida para el desayuno
+                Bebida Desayuno
             </th>
             <th>
-                Colacion de la Mañana
+                Colacion Mañana
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Comida)
             </th>
             <th>
-                Bebida para la comida
+                Bebida Comida
             </th>
             <th>
-                Colacion de la Tarde
+                Colacion Tarde
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Cena)
             </th>
             <th>
-                Bebida para cenar
+                Bebida Cena
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
+
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Dia)
+               @Html.DisplayFor(modelItem => item.Dia)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Desayuno)
@@ -79,11 +74,16 @@
                 @Html.DisplayFor(modelItem => item.Bebida3)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { PK=item.Nombre, RK=item.Dia }) |
+                <a href="/Dietas/Edit?PK=@item.Nombre&RK=@item.Dia"><img src="~/images/Editar.png" width="20" height="20"></a>|
+                <a href="/Dietas/Details?PK=@item.Nombre&RK=@item.Dia"><img src="~/images/Detalles.png" width="20" height="20"></a>|
+                <a href="/Dietas/Delete?PK=@item.Nombre&RK=@item.Dia"><img src="~/images/Borrar.png" width="20" height="20"></a>
+               <!-- @Html.ActionLink("Edit", "Edit", new { PK=item.Nombre, RK=item.Dia }) |
                 @Html.ActionLink("Details", "Details", new { PK=item.Nombre, RK=item.Dia }) |
-                @Html.ActionLink("Delete", "Delete", new { PK=item.Nombre, RK=item.Dia })
+                @Html.ActionLink("Delete", "Delete", new { PK=item.Nombre, RK=item.Dia })-->
             </td>
         </tr>
 }
     </tbody>
+    
 </table>
+<a href="/Pacientes">Volver a Mis Pacientes</a>

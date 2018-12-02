@@ -12,9 +12,10 @@ namespace AutNutriYA.Controllers
     public class DietasController : Controller
     {
         DietasRepo repo = new DietasRepo();
-        public ActionResult Index()
+        public ActionResult Index(string correo)
         {
-            List<Dieta> model = repo.LeerDieta();
+            ViewData["Correo"] = correo;
+            List<Dieta> model = repo.LeerDieta(correo);
             System.Threading.Thread.Sleep(500);
             return View(model);
         }
@@ -32,8 +33,9 @@ namespace AutNutriYA.Controllers
         }
 
         // GET: Dietas/Create
-        public ActionResult Create()
+        public ActionResult Create(string correo)
         {
+            ViewData["Correo"] = correo;
             var model = new Dieta();
             return View(model);
         }
@@ -46,7 +48,7 @@ namespace AutNutriYA.Controllers
             try
             {
                 var resultado = repo.CrearDieta(model);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", new { correo = model.Nombre});
             }
             catch
             {
@@ -90,7 +92,7 @@ namespace AutNutriYA.Controllers
                 var resultado = repo.ActualizarDieta(p);;
                 System.Threading.Thread.Sleep(500);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", new { correo = model.Nombre});
             }
             catch
             {
@@ -119,7 +121,7 @@ namespace AutNutriYA.Controllers
                 System.Threading.Thread.Sleep(500);
                 var resultado = repo.BorrarDieta(model);
                 System.Threading.Thread.Sleep(500);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", new { correo = model.Nombre});
             }
             catch
             {

@@ -71,11 +71,13 @@
                 
                 
                 <!--@Html.ActionLink("culo", "Edit", new { correo=item.Correo , nombre=item.NombreNut }) -->
-                <a href="Pacientes/Edit?PK=@item.NombreNut&RK=@item.Correo"><img src="~/images/Editar.png" width="25" height="25"></a> |
+                <a href="Dietas/Index?correo=@item.Correo"><img title="Dieta" src="~/images/Dieta.png" width="25" height="25"></a> |
+                <a href="Pacientes/Edit?PK=@item.NombreNut&RK=@item.Correo"><img title="Editar" src="~/images/Editar.png" width="25" height="25"></a> |
                 <!--@Html.ActionLink("Details", "Details", new { correo=item.Correo , nombre=item.NombreNut }) -->
-                <a href="Pacientes/Details?PK=@item.NombreNut&RK=@item.Correo"><img src="~/images/Detalles.png" width="25" height="25"></a> |
+                <a href="Pacientes/Details?PK=@item.NombreNut&RK=@item.Correo"><img title="Detalles" src="~/images/Detalles.png" width="25" height="25"></a> |
                 <!--@Html.ActionLink("Delete", "Delete", new { correo=item.Correo , nombre=item.NombreNut }) -->
-                <a href="Pacientes/Delete?PK=@item.NombreNut&RK=@item.Correo"><img src="~/images/Borrar.png" width="25" height="25"></a>
+                <a href="Pacientes/Delete?PK=@item.NombreNut&RK=@item.Correo"><img title="Borrar" src="~/images/Borrar.png" width="25" height="25"></a>
+                
                
             </td>
         </tr>

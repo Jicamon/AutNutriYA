@@ -1,10 +1,10 @@
 @model AutNutriYA.Dieta
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Crear Dieta";
 }
 
-<h2>Create</h2>
+<h2>Crear dieta de @ViewData["Correo"]</h2>
 
 <h4>Dieta</h4>
 <hr />
@@ -14,12 +14,21 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
+                <input asp-for="Nombre" class="form-control" value="@ViewData["Correo"]" readonly/>
                 <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Dia" class="control-label"></label>
-                <input asp-for="Dia" class="form-control" />
+                <label asp-for="Dia" class="control-label"></label><br>
+                <select class="form-control" asp-for="Dia">
+                    <option class="form-control" value="Dia 1 Lunes">Lunes</option>
+                    <option class="form-control" value="Dia 2 Martes">Martes</option>
+                    <option class="form-control" value="Dia 3 Miercoles">Miercoles</option>
+                    <option class="form-control" value="Dia 4 Jueves">Jueves</option>
+                    <option class="form-control" value="Dia 5 Viernes">Viernes</option>
+                    <option class="form-control" value="Dia 6 Sabado">Sabado</option>
+                    <option class="form-control" value="Dia 7 Domingo">Domingo</option>
+                </select>
+                <!--<input asp-for="Dia" class="form-control" />-->
                 <span asp-validation-for="Dia" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -70,6 +79,6 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a href="Index?correo=@ViewData["Correo"]">Volver a la dieta del Paciente</a>
 </div>
 
