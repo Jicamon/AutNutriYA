@@ -71,6 +71,7 @@
                 <select class="form-control" asp-for="Desayuno">
                     <option value="" disabled selected hidden>Seleccione el Desayuno</option>
                 @foreach (var item in Desayunos){
+                    <option class="form-control" value="@item.platillo">
                         @Html.DisplayName(item.platillo)
                     </option>
                 }
