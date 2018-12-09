@@ -78,16 +78,24 @@ namespace AutNutriYA.Controllers
             var p = repo.LeerPorPKRK(model.Nombre, model.Dia);
             try
             {
-                p.Nombre     = model.Nombre;
-                p.Dia        = model.Dia;
-                p.Desayuno   = model.Desayuno;
-                p.ColacionM  = model.ColacionM;
-                p.Comida     = model.Comida;
-                p.ColacionT  = model.ColacionT;
-                p.Cena       = model.Cena;
-                p.Bebida1    = model.Bebida1;
-                p.Bebida2    = model.Bebida2;
-                p.Bebida3    = model.Bebida3;
+                p.Nombre      = model.Nombre;
+                p.Dia         = model.Dia;
+                p.Desayuno    = model.Desayuno;
+                p.ColacionM   = model.ColacionM;
+                p.Comida      = model.Comida;
+                p.ColacionT   = model.ColacionT;
+                p.Cena        = model.Cena;
+                p.Bebida1     = model.Bebida1;
+                p.Bebida2     = model.Bebida2;
+                p.Bebida3     = model.Bebida3;
+                p.Desayuno_A  = model.Desayuno_A;
+                p.ColacionM_A = model.ColacionM_A;
+                p.Comida_A    = model.Comida_A;
+                p.ColacionT_A = model.ColacionT_A;
+                p.Cena_A      = model.Cena_A;
+                p.Bebida1_A   = model.Bebida1_A;
+                p.Bebida2_A   = model.Bebida2_A;
+                p.Bebida3_A   = model.Bebida3_A;
 
                 var resultado = repo.ActualizarDieta(p);;
                 System.Threading.Thread.Sleep(500);

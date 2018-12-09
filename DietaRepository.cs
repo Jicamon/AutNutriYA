@@ -29,13 +29,21 @@ namespace AutNutriYA{
                         entity.PartitionKey, 
                         entity.RowKey,
                         entity.Desayuno,
+                        entity.Desayuno_A,
                         entity.ColacionM,
+                        entity.ColacionM_A,
                         entity.Comida,
+                        entity.Comida_A,
                         entity.ColacionT,
+                        entity.ColacionT_A,
                         entity.Cena,
+                        entity.Cena_A,
                         entity.Bebida1,
+                        entity.Bebida1_A,
                         entity.Bebida2,
-                        entity.Bebida3));
+                        entity.Bebida2_A,
+                        entity.Bebida3,
+                        entity.Bebida3_A));
                 }
             }
 
@@ -46,7 +54,11 @@ namespace AutNutriYA{
         public bool CrearDieta(Dieta model){
             var Table = ReferenciaTabla("Dietas");
 
-            Table.ExecuteAsync(TableOperation.Insert(new DietaEntity(model.Nombre,model.Dia,model.Desayuno,model.ColacionM,model.Comida,model.ColacionT,model.Cena, model.Bebida1, model.Bebida2, model.Bebida3)));
+            Table.ExecuteAsync(TableOperation.Insert(new DietaEntity(model.Nombre,model.Dia,model.Desayuno,model.Desayuno_A,
+                                                    model.ColacionM,model.ColacionM_A,model.Comida,model.Comida_A,
+                                                    model.ColacionT,model.ColacionT_A,model.Cena, model.Cena_A, 
+                                                    model.Bebida1,model.Bebida1_A, model.Bebida2,model.Bebida2_A, 
+                                                    model.Bebida3,model.Bebida3_A)));
 
             return true;
         }
@@ -63,14 +75,22 @@ namespace AutNutriYA{
                     DietaEntity editEntity = (DietaEntity)retrievedResult.Result;
                     if (editEntity != null)
                     {
-                        editEntity.Desayuno   = dieta.Desayuno;
-                        editEntity.ColacionM  = dieta.ColacionM;
-                        editEntity.Comida     = dieta.Comida;
-                        editEntity.ColacionT  = dieta.ColacionT;
-                        editEntity.Cena       = dieta.Cena;
-                        editEntity.Bebida1    = dieta.Bebida1;
-                        editEntity.Bebida2    = dieta.Bebida2;
-                        editEntity.Bebida3    = dieta.Bebida3;
+                        editEntity.Desayuno    = dieta.Desayuno;
+                        editEntity.ColacionM   = dieta.ColacionM;
+                        editEntity.Comida      = dieta.Comida;
+                        editEntity.ColacionT   = dieta.ColacionT;
+                        editEntity.Cena        = dieta.Cena;
+                        editEntity.Bebida1     = dieta.Bebida1;
+                        editEntity.Bebida2     = dieta.Bebida2;
+                        editEntity.Bebida3     = dieta.Bebida3;
+                        editEntity.Desayuno_A  = dieta.Desayuno_A;
+                        editEntity.ColacionM_A = dieta.ColacionM_A;
+                        editEntity.Comida_A    = dieta.Comida_A;
+                        editEntity.ColacionT_A = dieta.ColacionT_A;
+                        editEntity.Cena_A      = dieta.Cena_A;
+                        editEntity.Bebida1_A   = dieta.Bebida1_A;
+                        editEntity.Bebida2_A   = dieta.Bebida2_A;
+                        editEntity.Bebida3_A   = dieta.Bebida3_A;
 
                         TableOperation editOperation = TableOperation.Replace(editEntity);
 
@@ -116,13 +136,21 @@ namespace AutNutriYA{
                         entity.PartitionKey, 
                         entity.RowKey,
                         entity.Desayuno,
+                        entity.Desayuno_A,
                         entity.ColacionM,
+                        entity.ColacionM_A,
                         entity.Comida,
+                        entity.Comida_A,
                         entity.ColacionT,
+                        entity.ColacionT_A,
                         entity.Cena,
+                        entity.Cena_A,
                         entity.Bebida1,
+                        entity.Bebida1_A,
                         entity.Bebida2,
-                        entity.Bebida3);
+                        entity.Bebida2_A,
+                        entity.Bebida3,
+                        entity.Bebida3_A);
 
                     list.Add(newDieta2);
                     
@@ -152,13 +180,21 @@ namespace AutNutriYA{
                         TempD.PartitionKey,
                         TempD.RowKey,
                         TempD.Desayuno,
+                        TempD.Desayuno_A,
                         TempD.ColacionM,
+                        TempD.ColacionM_A,
                         TempD.Comida,
+                        TempD.Comida_A,
                         TempD.ColacionT,
+                        TempD.ColacionT_A,
                         TempD.Cena,
+                        TempD.Cena_A,
                         TempD.Bebida1,
+                        TempD.Bebida1_A,
                         TempD.Bebida2,
-                        TempD.Bebida3);
+                        TempD.Bebida2_A,
+                        TempD.Bebida3,
+                        TempD.Bebida3_A);
                     DietaFin = DietaTmp;
                 }
                System.Threading.Thread.Sleep(200);
@@ -179,7 +215,9 @@ namespace AutNutriYA{
         {
             public DietaEntity() {}
 
-            public DietaEntity(string Nombre, string Dia, string Desayuno, string ColacionM, string Comida, string ColacionT, string Cena, string Bebida1, string Bebida2, string Bebida3){
+            public DietaEntity(string Nombre, string Dia, string Desayuno, string Desayuno_A, string ColacionM, string ColacionM_A, 
+                            string Comida, string Comida_A, string ColacionT, string ColacionT_A, string Cena, string Cena_A, 
+                            string Bebida1, string Bebida1_A, string Bebida2, string Bebida2_A, string Bebida3, string Bebida3_A){
                 
                 PartitionKey = Nombre;
                 RowKey = Dia;
@@ -191,6 +229,14 @@ namespace AutNutriYA{
                 this.Bebida1=Bebida1;
                 this.Bebida2=Bebida2;
                 this.Bebida3=Bebida3;
+                this.Desayuno_A = Desayuno_A;
+                this.ColacionM_A = ColacionM_A;
+                this.Comida_A = Comida_A;
+                this.ColacionT_A = ColacionT_A;
+                this.Cena_A = Cena_A;
+                this.Bebida1_A=Bebida1_A;
+                this.Bebida2_A=Bebida2_A;
+                this.Bebida3_A=Bebida3_A;
             }
 
             public string Nombre => PartitionKey;
@@ -203,8 +249,16 @@ namespace AutNutriYA{
             public string Bebida1 { get; set; }
             public string Bebida2 { get; set; }
             public string Bebida3 { get; set; }
+            public string Desayuno_A{get; set;}
+            public string ColacionM_A{get; set;}
+            public string Comida_A{get; set;}
+            public string ColacionT_A{get; set;}
+            public string Cena_A{get; set;}
+            public string Bebida1_A { get; set; }
+            public string Bebida2_A { get; set; }
+            public string Bebida3_A { get; set; }
 
-            public override string ToString() => $"{Nombre}{Dia}{Desayuno}{ColacionM}{Comida}{ColacionT}{Cena}{Bebida1}{Bebida2}{Bebida3}";
+            public override string ToString() => $"{Nombre}{Dia}{Desayuno}{Desayuno_A}{ColacionM}{ColacionM_A}{Comida}{Comida_A}{ColacionT}{ColacionT_A}{Cena}{Cena_A}{Bebida1}{Bebida1_A}{Bebida2}{Bebida2_A}{Bebida3}{Bebida3_A}";
 
         }
     
