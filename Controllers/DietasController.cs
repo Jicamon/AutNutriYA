@@ -47,7 +47,9 @@ namespace AutNutriYA.Controllers
         {
             try
             {
+                
                 var resultado = repo.CrearDieta(model);
+                System.Threading.Thread.Sleep(1000);
                 return RedirectToAction("Index", new { correo = model.Nombre});
             }
             catch
@@ -98,7 +100,7 @@ namespace AutNutriYA.Controllers
                 p.Bebida3_A   = model.Bebida3_A;
 
                 var resultado = repo.ActualizarDieta(p);;
-                System.Threading.Thread.Sleep(500);
+                System.Threading.Thread.Sleep(1300);
 
                 return RedirectToAction("Index", new { correo = model.Nombre});
             }
