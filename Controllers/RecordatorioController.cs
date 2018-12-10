@@ -23,12 +23,16 @@ namespace AutNutriYA.Controllers
         // GET: Recordatorio/Details/5
         public ActionResult Details(string PK, string RK)
         {
-            System.Threading.Thread.Sleep(1000); 
-            var model = repo.LeerPorPKRK(PK,RK);
-            if(model == null){
+            try{
+                System.Threading.Thread.Sleep(1000); 
+                var model = repo.LeerPorPKRK(PK,RK);
+                if(model == null){
+                    return NotFound();
+                }
+                return View(model);
+            }catch{
                 return NotFound();
             }
-            return View(model);
         }
 
         // GET: Recordatorio/Create

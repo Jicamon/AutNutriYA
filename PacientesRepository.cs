@@ -215,6 +215,8 @@ namespace AutNutriYA{
                         editEntity.Altura    = Paci.Altura;
                         editEntity.Peso      = Paci.Peso;
                         editEntity.Alergias  = Paci.Alergias;
+                        var Wea              = (double)Paci.Altura / 100;                    // ------
+                        editEntity.IMC       = (double)Paci.Peso / (Wea*Wea);   // ------
 
                         TableOperation editOperation = TableOperation.Replace(editEntity);
 

@@ -1,10 +1,10 @@
 @model AutNutriYA.Recordatorio
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles";
 }
 
-<h2>Details</h2>
+<h2>Detalles</h2>
 
 <div>
     <h4>Recordatorio</h4>
@@ -67,5 +67,5 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a href="\Dietas?correo=@Model.Nombre">Volver a Dietas</a>
 </div>

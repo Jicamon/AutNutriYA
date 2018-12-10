@@ -74,6 +74,7 @@
                 @Html.DisplayFor(modelItem => item.Bebida3)
             </td>
             <td>
+                <a href="/Recordatorio/Details?PK=@item.Nombre&RK=@item.Dia"><img src="~/images/Comentar.png" width="20" height="20"></a>|
                 <a href="/Dietas/Edit?PK=@item.Nombre&RK=@item.Dia"><img src="~/images/Editar.png" width="20" height="20"></a>|
                 <a href="/Dietas/Details?PK=@item.Nombre&RK=@item.Dia"><img src="~/images/Detalles.png" width="20" height="20"></a>|
                 <a href="/Dietas/Delete?PK=@item.Nombre&RK=@item.Dia"><img src="~/images/Borrar.png" width="20" height="20"></a>

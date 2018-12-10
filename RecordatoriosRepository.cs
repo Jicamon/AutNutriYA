@@ -130,18 +130,21 @@ namespace AutNutriYA{
             async void CacharRecordatorio(){
                 TableResult retrievedResult = await Table.ExecuteAsync(retrieveOperation);
                 var TempRec = (RecordatorioEntity)retrievedResult.Result;
-
-                var RecordatorioTmp = new Recordatorio(
-                    TempRec.PartitionKey, 
-                    TempRec.RowKey,
-                    TempRec.platilloDesayuno,
-                    TempRec.porcionDes,
-                    TempRec.platilloComida,
-                    TempRec.porcionCom,
-                    TempRec.platilloCena,
-                    TempRec.porcionCena,
-                    TempRec.comentario);
-                RecordatorioFin = RecordatorioTmp;
+                try{
+                    var RecordatorioTmp = new Recordatorio(
+                        TempRec.PartitionKey, 
+                        TempRec.RowKey,
+                        TempRec.platilloDesayuno,
+                        TempRec.porcionDes,
+                        TempRec.platilloComida,
+                        TempRec.porcionCom,
+                        TempRec.platilloCena,
+                        TempRec.porcionCena,
+                        TempRec.comentario);
+                    RecordatorioFin = RecordatorioTmp;
+                }catch{
+                    RecordatorioFin = null;
+                }
             }
             System.Threading.Thread.Sleep(200);
             return RecordatorioFin;   
