@@ -11,7 +11,7 @@ namespace AutNutriYA{
         public const string STORAGEACCOUNTNAME = "s101moyag8";
         public const string ACCOUNTKEY = "WPB64UdtcYgJZ+d+EQW8v+LPrj0YkakcAsQXtE6KvOhMaTxuIaP+EqD7tXHpG3hqoKMlAWFwdLR2e1vWU57i+g==";
     
-        public List<Recordatorio> LeerRecordatorio(){
+        public async Task<List<Recordatorio>> LeerRecordatorio(){
             var Table = ReferenciaTabla("Recordatorios");
             List<Recordatorio> Recordatorios = new List<Recordatorio>();
             TableQuery<RecordatorioEntity> query = new TableQuery<RecordatorioEntity>().Where
@@ -19,10 +19,9 @@ namespace AutNutriYA{
                 TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.NotEqual," ")
                 );            
                 
-                CacharRecordatorios();
+                var Res = await CacharRecordatorios();
 
-                async void CacharRecordatorios(){
-                var list = new List<RecordatorioEntity>();
+                async Task<List<Recordatorio>> CacharRecordatorios(){
                 var tk = new TableContinuationToken();
                 foreach (RecordatorioEntity entity in await Table.ExecuteQuerySegmentedAsync(query,tk)){
                     
@@ -37,10 +36,11 @@ namespace AutNutriYA{
                         entity.porcionCena,
                         entity.comentario));
                 }
+                return Recordatorios;
             }
 
             
-            return Recordatorios;
+            return Res;
         }
         
         public bool CrearRecordatorio(Recordatorio model){
@@ -51,14 +51,14 @@ namespace AutNutriYA{
             return true;
         }
 
-        public bool ActualizarRecordatorio(Recordatorio recordatorio)
+        public async Task<bool> ActualizarRecordatorio(Recordatorio recordatorio)
         {
             var Table = ReferenciaTabla("Recordatorios");
 
             TableOperation retrieveOperation = TableOperation.Retrieve<RecordatorioEntity>(recordatorio.Nombre, recordatorio.Dia);
 
-            EditarRecordatorio();
-                async void EditarRecordatorio(){
+            var funciono = await EditarRecordatorio();
+                async Task<bool> EditarRecordatorio(){
                     TableResult retrievedResult = await Table.ExecuteAsync(retrieveOperation);
                     RecordatorioEntity editEntity = (RecordatorioEntity)retrievedResult.Result;
                     if (editEntity != null)
@@ -74,60 +74,62 @@ namespace AutNutriYA{
                         TableOperation editOperation = TableOperation.Replace(editEntity);
 
                         await Table.ExecuteAsync(editOperation);
-                    }
+                        return true;
+                    }else return false;
 
                 }
 
-            return true;
+            return funciono;
         }
         
-        public bool BorrarRecordatorio(Recordatorio recordatorio){
+        public async Task<bool> BorrarRecordatorio(Recordatorio recordatorio){
             var Table = ReferenciaTabla("Recordatorios");
             TableOperation retrieveOperation = TableOperation.Retrieve<RecordatorioEntity>(recordatorio.Nombre, recordatorio.Dia);
-            EliminarRecordatorio();
-            async void EliminarRecordatorio(){
+            var funciono = await EliminarRecordatorio();
+            async Task<bool> EliminarRecordatorio(){
                 TableResult retrievedResult = await Table.ExecuteAsync(retrieveOperation);
                 RecordatorioEntity deleteEntity = (RecordatorioEntity)retrievedResult.Result;
                 if(deleteEntity != null){
                     TableOperation deleteOperation = TableOperation.Delete(deleteEntity);
                     await Table.ExecuteAsync(deleteOperation);
-                }
+                    return true;
+                }else return false;
             }
-            return true;
+            return funciono;
 
         }
 
         public async Task<bool> existeAsync(string PK, string RK){
-            bool res=true;
+            //bool res=false;
             var Table = ReferenciaTabla("Recordatorios");
 
             TableOperation retrieveOperation = TableOperation.Retrieve<RecordatorioEntity>(PK, RK);
 
-            System.Threading.Thread.Sleep(2500);
-            await CacharRecordatorio2();
+            //System.Threading.Thread.Sleep(2500);
+            var funciono = await CacharRecordatorio2();
                 
             async Task<bool> CacharRecordatorio2(){
                 TableResult retrievedResult = await Table.ExecuteAsync(retrieveOperation);
                 if(retrievedResult.Result == null){
-                    res=false;
+                    return false;
                 }
-                return res;
+                return true;
 
             }
-            return res;
+            return funciono;
         }
 
-        public Recordatorio LeerPorPKRK(string PK, string RK){
+        public async Task<Recordatorio> LeerPorPKRK(string PK, string RK){
                 
             Recordatorio RecordatorioFin = new Recordatorio();
             var Table = ReferenciaTabla("Recordatorios");
 
             TableOperation retrieveOperation = TableOperation.Retrieve<RecordatorioEntity>(PK, RK);
 
-            CacharRecordatorio();
-            System.Threading.Thread.Sleep(500);
+            var Res = await CacharRecordatorio();
+            //System.Threading.Thread.Sleep(500);
                 
-            async void CacharRecordatorio(){
+            async Task<Recordatorio> CacharRecordatorio(){
                 TableResult retrievedResult = await Table.ExecuteAsync(retrieveOperation);
                 var TempRec = (RecordatorioEntity)retrievedResult.Result;
                 try{
@@ -145,9 +147,11 @@ namespace AutNutriYA{
                 }catch{
                     RecordatorioFin = null;
                 }
+
+                return RecordatorioFin;
             }
-            System.Threading.Thread.Sleep(200);
-            return RecordatorioFin;   
+            //System.Threading.Thread.Sleep(200);
+            return Res;   
         }
 
         public CloudTable ReferenciaTabla(string nombreTabla){

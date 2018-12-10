@@ -15,17 +15,17 @@ namespace AutNutriYA.Controllers
         // GET: platillos
         public ActionResult Index()
         {
-            List<Platillo> model = repo.LeerPlatillo();
-            System.Threading.Thread.Sleep(500);
+            List<Platillo> model = repo.LeerPlatillo().Result;
+            //System.Threading.Thread.Sleep(500);
             return View(model);
         }
 
         // GET: platillos/Details/5
         public ActionResult Details(string PK, string RK)
         {
-            System.Threading.Thread.Sleep(1000);
+            //System.Threading.Thread.Sleep(1000);
             
-            var model = repo.LeerPorPKRK(PK,RK);
+            var model = repo.LeerPorPKRK(PK,RK).Result;
             if(model == null){
                 return NotFound();
             }
@@ -58,7 +58,7 @@ namespace AutNutriYA.Controllers
         // GET: platillos/Edit/5
         public ActionResult Edit(string PK, string RK)
         {
-            var model = repo.LeerPorPKRK(PK, RK);
+            var model = repo.LeerPorPKRK(PK, RK).Result;
             if(model == null){
                 return NotFound();
             }
@@ -74,7 +74,7 @@ namespace AutNutriYA.Controllers
                 return NotFound();
             }
 
-            var p = repo.LeerPorPKRK(model.tipo, model.platillo);
+            var p = repo.LeerPorPKRK(model.tipo, model.platillo).Result;
             try
             {
                 p.tipo = model.tipo;
@@ -83,8 +83,8 @@ namespace AutNutriYA.Controllers
                 p.calorias = model.calorias;
                 p.porcion = model.porcion;
 
-                var resultado = repo.ActualizarPlatillo(p);;
-                System.Threading.Thread.Sleep(500);
+                var resultado = repo.ActualizarPlatillo(p).Result;
+                //System.Threading.Thread.Sleep(500);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -97,7 +97,7 @@ namespace AutNutriYA.Controllers
         // GET: platillos/Delete/5
         public ActionResult Delete(string PK, string RK)
         {
-            var model = repo.LeerPorPKRK(PK, RK);
+            var model = repo.LeerPorPKRK(PK, RK).Result;
             if(model == null){
                 return NotFound();
             }
@@ -109,13 +109,13 @@ namespace AutNutriYA.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Platillo model)
         {
-            var pack = repo.LeerPorPKRK(model.tipo, model.platillo);
+            var pack = repo.LeerPorPKRK(model.tipo, model.platillo).Result;
 
             try
             {
-                System.Threading.Thread.Sleep(500);
-                var resultado = repo.BorrarPlatillo(model);
-                System.Threading.Thread.Sleep(500);
+                //System.Threading.Thread.Sleep(500);
+                var resultado = repo.BorrarPlatillo(model).Result;
+                //System.Threading.Thread.Sleep(500);
                 return RedirectToAction(nameof(Index));
             }
             catch

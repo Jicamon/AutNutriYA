@@ -4,7 +4,7 @@
     ViewData["Title"] = "Crear Dieta";
     PlatillosRepo repo        = new PlatillosRepo();
     PacientesRepository alergias = new PacientesRepository();
-    List<Platillo> Platillos  = repo.LeerPlatillo();
+    List<Platillo> Platillos  = repo.LeerPlatillo().Result;
     System.Threading.Thread.Sleep(1000);
     Paciente Paciente  = alergias.LeerPaciente(ViewBag.Correo);
     System.Threading.Thread.Sleep(1000);

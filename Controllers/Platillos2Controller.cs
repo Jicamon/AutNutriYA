@@ -19,8 +19,8 @@ namespace AutNutriYA.Controllers
         [HttpGet("GetPlatillos")]
         public ActionResult<List<Platillo>> Get()
         {
-            var model = repo.LeerPlatillo();
-            System.Threading.Thread.Sleep(1000);
+            var model = repo.LeerPlatillo().Result;
+            //System.Threading.Thread.Sleep(1000);
             if(model == null)
                 return NotFound();
             return model;
@@ -35,9 +35,9 @@ namespace AutNutriYA.Controllers
         [HttpGet("GetPlatillos/{PK}/{RK}")]
         public ActionResult<Platillo> Get(string PK, string RK)
         {
-            System.Threading.Thread.Sleep(1000);
-            var model = repo.LeerPorPKRK(PK, RK);
-            System.Threading.Thread.Sleep(1000);
+            //System.Threading.Thread.Sleep(1000);
+            var model = repo.LeerPorPKRK(PK, RK).Result;
+            //System.Threading.Thread.Sleep(1000);
             if(model == null){
                 return NotFound();
             }
@@ -72,8 +72,8 @@ namespace AutNutriYA.Controllers
                 return NotFound();
             }
 
-            var resultado = repo.ActualizarPlatillo(model);;
-            System.Threading.Thread.Sleep(1000);
+            var resultado = repo.ActualizarPlatillo(model).Result;
+            //System.Threading.Thread.Sleep(1000);
 
 
             return resultado;
@@ -90,13 +90,13 @@ namespace AutNutriYA.Controllers
         [HttpDelete("DeletePlatillos/{PK}/{RK}")]
         public ActionResult<bool> Delete(string PK, string RK)
         {
-            System.Threading.Thread.Sleep(1000);
-            var p = repo.LeerPorPKRK(PK, RK);
+            //System.Threading.Thread.Sleep(1000);
+            var p = repo.LeerPorPKRK(PK, RK).Result;
             if(p == null){
                 return NotFound();
             }
-            var resultado = repo.BorrarPlatillo(p);
-            System.Threading.Thread.Sleep(1000);
+            var resultado = repo.BorrarPlatillo(p).Result;
+            //System.Threading.Thread.Sleep(1000);
 
 
             return true;

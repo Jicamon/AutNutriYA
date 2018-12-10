@@ -16,8 +16,8 @@ namespace AutNutriYA.Controllers
         [HttpGet("GetRecordatorios")]
         public ActionResult<List<Recordatorio>> Get()
         {
-            var model = repo.LeerRecordatorio();
-            System.Threading.Thread.Sleep(1000);
+            var model = repo.LeerRecordatorio().Result;
+            //System.Threading.Thread.Sleep(1000);
             if(model == null)
                 return NotFound();
             return model;
@@ -27,9 +27,9 @@ namespace AutNutriYA.Controllers
         [HttpGet("GetRecordatorios/{PK}/{RK}")]
         public ActionResult<Recordatorio> Get(string PK, string RK)
         {
-            System.Threading.Thread.Sleep(1000);
-            var model = repo.LeerPorPKRK(PK, RK);
-            System.Threading.Thread.Sleep(1000);
+            //System.Threading.Thread.Sleep(1000);
+            var model = repo.LeerPorPKRK(PK, RK).Result;
+            //System.Threading.Thread.Sleep(1000);
             if(model == null){
                 return NotFound();
             }
@@ -40,13 +40,13 @@ namespace AutNutriYA.Controllers
         [HttpPost("PostRecordatorios")]
         public ActionResult<bool> Post(Recordatorio recordatorio)
         {
-            System.Threading.Thread.Sleep(2500);
-            var exist=repo.existeAsync(recordatorio.Nombre,recordatorio.Dia);
-            if (exist.Result)
+            //System.Threading.Thread.Sleep(2500);
+            var exist=repo.existeAsync(recordatorio.Nombre,recordatorio.Dia).Result;
+            if (exist)
             {
                 //var model = repo.LeerPorPKRK(recordatorio.Nombre, recordatorio.Dia);
-                System.Threading.Thread.Sleep(1000);
-                var resultado = repo.ActualizarRecordatorio(recordatorio);
+                //System.Threading.Thread.Sleep(1000);
+                var resultado = repo.ActualizarRecordatorio(recordatorio).Result;
                 return resultado;
             }
             return repo.CrearRecordatorio(recordatorio);
@@ -63,13 +63,13 @@ namespace AutNutriYA.Controllers
         [HttpDelete("DeleteRecordatorios/{PK}/{RK}")]
         public ActionResult<bool> Delete(string PK, string RK)
         {
-            System.Threading.Thread.Sleep(1000);
-            var p = repo.LeerPorPKRK(PK, RK);
+            //System.Threading.Thread.Sleep(1000);
+            var p = repo.LeerPorPKRK(PK, RK).Result;
             if(p == null){
                 return NotFound();
             }
-            var resultado = repo.BorrarRecordatorio(p);
-            System.Threading.Thread.Sleep(1000);
+            var resultado = repo.BorrarRecordatorio(p).Result;
+            //System.Threading.Thread.Sleep(1000);
 
 
             return true;

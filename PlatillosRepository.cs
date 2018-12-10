@@ -4,13 +4,14 @@ using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Table;
 using Microsoft.WindowsAzure.Storage.Queue;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AutNutriYA{
     public class PlatillosRepo{
         public const string STORAGEACCOUNTNAME = "s101moyag8";
         public const string ACCOUNTKEY = "WPB64UdtcYgJZ+d+EQW8v+LPrj0YkakcAsQXtE6KvOhMaTxuIaP+EqD7tXHpG3hqoKMlAWFwdLR2e1vWU57i+g==";
     
-        public List<Platillo> LeerPlatillo(){
+        public async Task<List<Platillo>> LeerPlatillo(){
             var Table = ReferenciaTabla("Platillos");
             List<Platillo> Platillos = new List<Platillo>();
             TableQuery<PlatilloEntity> query = new TableQuery<PlatilloEntity>().Where
@@ -18,10 +19,9 @@ namespace AutNutriYA{
                 TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.NotEqual," ")
                 );            
                 
-                CacharPlatillos();
+                var Res = await CacharPlatillos();
 
-                async void CacharPlatillos(){
-                var list = new List<PlatilloEntity>();
+                async Task<List<Platillo>> CacharPlatillos(){
                 var tk = new TableContinuationToken();
                 foreach (PlatilloEntity entity in await Table.ExecuteQuerySegmentedAsync(query,tk)){
                     
@@ -33,68 +33,13 @@ namespace AutNutriYA{
                         entity.porcion
                     ));
                 }
+                return Platillos;
             }
 
             
-            return Platillos;
+            return Res;
         }
         
-        public List<Platillo> LeerBebidas(){
-            var Table = ReferenciaTabla("Platillos");
-            List<Platillo> Bebidas = new List<Platillo>();
-            TableQuery<PlatilloEntity> query = new TableQuery<PlatilloEntity>().Where
-                (
-                TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal,"Bebida")
-                );            
-                
-                CacharBebidas();
-
-                async void CacharBebidas(){
-                var tk = new TableContinuationToken();
-                foreach (PlatilloEntity entity in await Table.ExecuteQuerySegmentedAsync(query,tk)){
-                    
-                    Bebidas.Add(new Platillo(
-                        entity.PartitionKey, 
-                        entity.RowKey,
-                        entity.Calorias, 
-                        entity.Ingredientes,
-                        entity.porcion
-                    ));
-                }
-            }
-
-            
-            return Bebidas;
-        }
-
-        public List<Platillo> LeerAlimentos(){
-            var Table = ReferenciaTabla("Platillos");
-            List<Platillo> Alimentos = new List<Platillo>();
-            TableQuery<PlatilloEntity> query = new TableQuery<PlatilloEntity>().Where
-                (
-                TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.NotEqual,"Bebida")
-                );            
-                
-                CacharAlimentos();
-
-                async void CacharAlimentos(){
-                var tk = new TableContinuationToken();
-                foreach (PlatilloEntity entity in await Table.ExecuteQuerySegmentedAsync(query,tk)){
-                    
-                    Alimentos.Add(new Platillo(
-                        entity.PartitionKey, 
-                        entity.RowKey,
-                        entity.Calorias, 
-                        entity.Ingredientes,
-                        entity.porcion
-                    ));
-                }
-            }
-
-            
-            return Alimentos;
-        }
-
         public bool CrearPlatillo(Platillo model){
             var Table = ReferenciaTabla("Platillos");
 
@@ -103,14 +48,14 @@ namespace AutNutriYA{
             return true;
         }
 
-        public bool ActualizarPlatillo(Platillo platillo)
+        public async Task<bool> ActualizarPlatillo(Platillo platillo)
         {
             var Table = ReferenciaTabla("Platillos");
 
             TableOperation retrieveOperation = TableOperation.Retrieve<PlatilloEntity>(platillo.tipo, platillo.platillo);
 
-            EditarPlatillo();
-                async void EditarPlatillo(){
+            var funciono= await EditarPlatillo();
+                async Task<bool> EditarPlatillo(){
                     TableResult retrievedResult = await Table.ExecuteAsync(retrieveOperation);
                     PlatilloEntity editEntity = (PlatilloEntity)retrievedResult.Result;
                     if (editEntity != null)
@@ -122,30 +67,32 @@ namespace AutNutriYA{
                         TableOperation editOperation = TableOperation.Replace(editEntity);
 
                         await Table.ExecuteAsync(editOperation);
-                    }
-
+                        return true;
+                    }else return false;
+                    
                 }
 
-            return true;
+            return funciono;
         }
         
-        public bool BorrarPlatillo(Platillo platillo){
+        public async Task<bool> BorrarPlatillo(Platillo platillo){
             var Table = ReferenciaTabla("Platillos");
             TableOperation retrieveOperation = TableOperation.Retrieve<PlatilloEntity>(platillo.tipo, platillo.platillo);
-            EliminarPlatillo();
-            async void EliminarPlatillo(){
+            var funciono = await EliminarPlatillo();
+            async Task<bool> EliminarPlatillo(){
                 TableResult retrievedResult = await Table.ExecuteAsync(retrieveOperation);
                 PlatilloEntity deleteEntity = (PlatilloEntity)retrievedResult.Result;
                 if(deleteEntity != null){
                     TableOperation deleteOperation = TableOperation.Delete(deleteEntity);
                     await Table.ExecuteAsync(deleteOperation);
-                }
+                    return true;
+                } else return false;
             }
-            return true;
+            return funciono;
 
         }
 
-        public Platillo LeerPorPKRK(string PK, string RK)
+        public async Task<Platillo> LeerPorPKRK(string PK, string RK)
             {
                 
                 Platillo PlatilloFin = new Platillo();
@@ -153,9 +100,9 @@ namespace AutNutriYA{
 
                 TableOperation retrieveOperation = TableOperation.Retrieve<PlatilloEntity>(PK, RK);
 
-                CacharPlatillo();
+                var Res = await CacharPlatillo();
                 
-                async void CacharPlatillo(){
+                async Task<Platillo> CacharPlatillo(){
                     TableResult retrievedResult = await Table.ExecuteAsync(retrieveOperation);
                     var TempPac = (PlatilloEntity)retrievedResult.Result;
 
@@ -166,9 +113,10 @@ namespace AutNutriYA{
                         TempPac.Ingredientes,
                         TempPac.porcion);
                     PlatilloFin = PlatilloTmp;
+                    return PlatilloFin;
                 }
                System.Threading.Thread.Sleep(200);
-               return PlatilloFin;   
+               return Res;   
             }
 
         public CloudTable ReferenciaTabla(string nombreTabla){
