@@ -15,17 +15,17 @@ namespace AutNutriYA.Controllers
         public ActionResult Index(string correo)
         {
             ViewData["Correo"] = correo;
-            List<Dieta> model = repo.LeerDieta(correo);
-            System.Threading.Thread.Sleep(500);
+            List<Dieta> model = repo.LeerDieta(correo).Result;
+            //System.Threading.Thread.Sleep(500);
             return View(model);
         }
 
         // GET: Dietas/Details/5
         public ActionResult Details(string PK, string RK)
         {
-            System.Threading.Thread.Sleep(1000);
+            //System.Threading.Thread.Sleep(1000);
             
-            var model = repo.LeerPorPKRK(PK,RK);
+            var model = repo.LeerPorPKRK(PK,RK).Result;
             if(model == null){
                 return NotFound();
             }
@@ -49,7 +49,7 @@ namespace AutNutriYA.Controllers
             {
                 
                 var resultado = repo.CrearDieta(model);
-                System.Threading.Thread.Sleep(1000);
+                //System.Threading.Thread.Sleep(1000);
                 return RedirectToAction("Index", new { correo = model.Nombre});
             }
             catch
@@ -61,7 +61,7 @@ namespace AutNutriYA.Controllers
         // GET: Dietas/Edit/5
         public ActionResult Edit(string PK, string RK)
         {
-            var model = repo.LeerPorPKRK(PK, RK);
+            var model = repo.LeerPorPKRK(PK, RK).Result;
             if(model == null){
                 return NotFound();
             }
@@ -77,7 +77,7 @@ namespace AutNutriYA.Controllers
                 return NotFound();
             }
 
-            var p = repo.LeerPorPKRK(model.Nombre, model.Dia);
+            var p = repo.LeerPorPKRK(model.Nombre, model.Dia).Result;
             try
             {
                 p.Nombre      = model.Nombre;
@@ -99,8 +99,8 @@ namespace AutNutriYA.Controllers
                 p.Bebida2_A   = model.Bebida2_A;
                 p.Bebida3_A   = model.Bebida3_A;
 
-                var resultado = repo.ActualizarDieta(p);;
-                System.Threading.Thread.Sleep(1300);
+                var resultado = repo.ActualizarDieta(p).Result;
+                //System.Threading.Thread.Sleep(1300);
 
                 return RedirectToAction("Index", new { correo = model.Nombre});
             }
@@ -113,7 +113,7 @@ namespace AutNutriYA.Controllers
         // GET: Dietas/Delete/5
         public ActionResult Delete(string PK, string RK)
         {
-            var model = repo.LeerPorPKRK(PK, RK);
+            var model = repo.LeerPorPKRK(PK, RK).Result;
             if(model == null){
                 return NotFound();
             }
@@ -125,12 +125,12 @@ namespace AutNutriYA.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Dieta model)
         {
-            var p = repo.LeerPorPKRK(model.Nombre, model.Dia);
+            var p = repo.LeerPorPKRK(model.Nombre, model.Dia).Result;
             try
             {
-                System.Threading.Thread.Sleep(500);
-                var resultado = repo.BorrarDieta(model);
-                System.Threading.Thread.Sleep(500);
+                //System.Threading.Thread.Sleep(500);
+                var resultado = repo.BorrarDieta(model).Result;
+                //System.Threading.Thread.Sleep(500);
                 return RedirectToAction("Index", new { correo = model.Nombre});
             }
             catch

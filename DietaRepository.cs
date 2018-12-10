@@ -4,13 +4,14 @@ using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Table;
 using Microsoft.WindowsAzure.Storage.Queue;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AutNutriYA{
     public class DietasRepo{
         public const string STORAGEACCOUNTNAME = "s101moyag8";
         public const string ACCOUNTKEY = "WPB64UdtcYgJZ+d+EQW8v+LPrj0YkakcAsQXtE6KvOhMaTxuIaP+EqD7tXHpG3hqoKMlAWFwdLR2e1vWU57i+g==";
     
-        public List<Dieta> LeerDieta(){
+        public async Task<List<Dieta>> LeerDieta(){
             var Table = ReferenciaTabla("Dietas");
             List<Dieta> Dietas = new List<Dieta>();
             TableQuery<DietaEntity> query = new TableQuery<DietaEntity>().Where
@@ -18,11 +19,10 @@ namespace AutNutriYA{
                 TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.NotEqual," ")
                 );            
                 
-                CacharDietas();
+                var Res = await CacharDietas();
 
-                async void CacharDietas(){
-                var list = new List<DietaEntity>();
-                var tk = new TableContinuationToken();
+            async Task<List<Dieta>> CacharDietas(){
+            var tk = new TableContinuationToken();
                 foreach (DietaEntity entity in await Table.ExecuteQuerySegmentedAsync(query,tk)){
                     
                     Dietas.Add(new Dieta(
@@ -45,10 +45,9 @@ namespace AutNutriYA{
                         entity.Bebida3,
                         entity.Bebida3_A));
                 }
+                return Dietas;
             }
-
-            
-            return Dietas;
+            return Res;
         }
         
         public bool CrearDieta(Dieta model){
@@ -63,14 +62,14 @@ namespace AutNutriYA{
             return true;
         }
 
-        public bool ActualizarDieta(Dieta dieta)
+        public async Task<bool> ActualizarDieta(Dieta dieta)
         {
             var Table = ReferenciaTabla("Dietas");
 
             TableOperation retrieveOperation = TableOperation.Retrieve<DietaEntity>(dieta.Nombre, dieta.Dia);
-
-            EditarDieta();
-                async void EditarDieta(){
+            
+            var funciono = await EditarDieta();
+                async Task<bool> EditarDieta(){
                     TableResult retrievedResult = await Table.ExecuteAsync(retrieveOperation);
                     DietaEntity editEntity = (DietaEntity)retrievedResult.Result;
                     if (editEntity != null)
@@ -95,43 +94,44 @@ namespace AutNutriYA{
                         TableOperation editOperation = TableOperation.Replace(editEntity);
 
                         await Table.ExecuteAsync(editOperation);
-                    }
-
+                        return true;
+                    }else return false;
                 }
 
-            return true;
+            return funciono;
         }
         
-        public bool BorrarDieta(Dieta dieta){
+        public async Task<bool> BorrarDieta(Dieta dieta){
             var Table = ReferenciaTabla("Dietas");
             TableOperation retrieveOperation = TableOperation.Retrieve<DietaEntity>(dieta.Nombre, dieta.Dia);
-            EliminarDieta();
-            async void EliminarDieta(){
+            var funciono = await EliminarDieta();
+            async Task<bool> EliminarDieta(){
                 TableResult retrievedResult = await Table.ExecuteAsync(retrieveOperation);
                 DietaEntity deleteEntity = (DietaEntity)retrievedResult.Result;
                 if(deleteEntity != null){
                     TableOperation deleteOperation = TableOperation.Delete(deleteEntity);
                     await Table.ExecuteAsync(deleteOperation);
-                }
+                    return true;
+                }else return false;
             }
             return true;
 
         }
 
-        public List<Dieta> LeerDieta(string correo){
+        public async Task<List<Dieta>> LeerDieta(string correo){
             Dieta dieta = new Dieta();
             var list = new List<Dieta>();
             DietaEntity dieta2 = new DietaEntity();
             var Table = ReferenciaTabla("Dietas");
             TableQuery<DietaEntity> query = new TableQuery<DietaEntity>().Where(
                 TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, correo));
-            System.Threading.Thread.Sleep(1000);
-            CacharDieta();
-            async void CacharDieta(){
-                
+            //System.Threading.Thread.Sleep(1000);
+            var Res = await CacharDieta();
+
+            async Task<List<Dieta>> CacharDieta(){
                 var tk = new TableContinuationToken();
-                foreach (DietaEntity entity in await Table.ExecuteQuerySegmentedAsync(query, tk)){
-                    
+                foreach (DietaEntity entity in await Table.ExecuteQuerySegmentedAsync(query, tk))
+                {
                     var newDieta2 = new Dieta(
                         entity.PartitionKey, 
                         entity.RowKey,
@@ -156,13 +156,13 @@ namespace AutNutriYA{
                     
 
                 }
+                return list;
             }
-            System.Threading.Thread.Sleep(500);
-            return list;
-            
-            
+            //System.Threading.Thread.Sleep(500);
+            return Res;
+                       
         }
-        public Dieta LeerPorPKRK(string PK, string RK)
+        public async Task<Dieta> LeerPorPKRK(string PK, string RK)
             {
                 
                 Dieta DietaFin = new Dieta();
@@ -170,9 +170,9 @@ namespace AutNutriYA{
 
                 TableOperation retrieveOperation = TableOperation.Retrieve<DietaEntity>(PK, RK);
 
-                CacharDieta();
+                var Res = await CacharDieta();
                 
-                async void CacharDieta(){
+                async Task<Dieta> CacharDieta(){
                     TableResult retrievedResult = await Table.ExecuteAsync(retrieveOperation);
                     var TempD = (DietaEntity)retrievedResult.Result;
 
@@ -196,9 +196,11 @@ namespace AutNutriYA{
                         TempD.Bebida3,
                         TempD.Bebida3_A);
                     DietaFin = DietaTmp;
+
+                    return DietaFin;
                 }
-               System.Threading.Thread.Sleep(200);
-               return DietaFin;   
+               //System.Threading.Thread.Sleep(200);
+               return Res;   
             }
 
         public CloudTable ReferenciaTabla(string nombreTabla){
