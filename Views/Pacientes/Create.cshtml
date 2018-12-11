@@ -13,7 +13,7 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="NombreNut" class="control-label"></label>
+                <label asp-for="NombreNut" class="control-label">Nutriolgo</label>
                 <input asp-for="NombreNut" class="form-control" value="@User.Identity.Name" readonly/>
                 <span asp-validation-for="NombreNut" class="text-danger"></span>
             </div>
@@ -23,7 +23,7 @@
                 <span asp-validation-for="Correo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="NombrePac" class="control-label"></label>
+                <label asp-for="NombrePac" class="control-label">Paciente</label>
                 <input asp-for="NombrePac" class="form-control" />
                 <span asp-validation-for="NombrePac" class="text-danger"></span>
             </div>
@@ -43,13 +43,13 @@
                 <span asp-validation-for="Peso" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CorreoNut" class="control-label"></label>
+                <label asp-for="CorreoNut" class="control-label">Correo de Nutriologo</label>
                 <input asp-for="CorreoNut" class="form-control" value="@User.Identity.Name" readonly />
                 <span asp-validation-for="CorreoNut" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label  class="control-label">Contraseña</label>
-                <input type="text" name="contrasena" placeholder="Contraseña del Paciente" class="form-control" />
+                <input type="password" name="contrasena" placeholder="Contraseña del Paciente" class="form-control" />
                 <span class="text-danger"></span>
             </div>
 
