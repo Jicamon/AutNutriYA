@@ -20,7 +20,6 @@ namespace AutNutriYA.Controllers
         public ActionResult<List<Dieta>> Get()
         {
             var model = repo.LeerDieta().Result;
-            //System.Threading.Thread.Sleep(1000);
             if(model == null)
                 return NotFound();
             return model;
@@ -35,9 +34,7 @@ namespace AutNutriYA.Controllers
         [HttpGet("GetDietas/{PK}/{RK}")]
         public ActionResult<Dieta> Get(string PK, string RK)
         {
-            //System.Threading.Thread.Sleep(1000);
             var model = repo.LeerPorPKRK(PK, RK).Result;
-            //System.Threading.Thread.Sleep(1000);
             if(model == null){
                 return NotFound();
             }
@@ -47,9 +44,7 @@ namespace AutNutriYA.Controllers
         [HttpGet("GetDietas/{PK}")]
         public ActionResult<List<Dieta>> Get(string PK)
         {
-            //System.Threading.Thread.Sleep(1000);
             var model = repo.LeerDieta(PK).Result;
-            //System.Threading.Thread.Sleep(1000);
             if(model == null){
                 return NotFound();
             }
@@ -83,7 +78,6 @@ namespace AutNutriYA.Controllers
             }
 
             var resultado = repo.ActualizarDieta(model).Result;
-            //System.Threading.Thread.Sleep(1000);
 
 
             return resultado;
@@ -100,13 +94,11 @@ namespace AutNutriYA.Controllers
         [HttpDelete("DeleteDietas/{PK}/{RK}")]
         public ActionResult<bool> Delete(string PK, string RK)
         {
-            //System.Threading.Thread.Sleep(1000);
             var p = repo.LeerPorPKRK(PK, RK).Result;
             if(p == null){
                 return NotFound();
             }
             var resultado = repo.BorrarDieta(p).Result;
-            System.Threading.Thread.Sleep(1000);
 
 
             return resultado;

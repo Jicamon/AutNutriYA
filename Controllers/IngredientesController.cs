@@ -18,16 +18,14 @@ namespace AutNutriYA.Controllers
         // GET: Ingredientes
         public ActionResult Index()
         {
-            List<Ingrediente> model = repo.LeerIngrediente();
-            System.Threading.Thread.Sleep(1000);
+            List<Ingrediente> model = repo.LeerIngrediente().Result;
             return View(model);
         }
 
         // GET: Ingredientes/Details/5
         public ActionResult Details(string PK, string RK)
         {
-            System.Threading.Thread.Sleep(1000);
-            var model = repo.LeerPorPKRK(PK,RK);
+            var model = repo.LeerPorPKRK(PK,RK).Result;
             if(model == null){
                 return NotFound();
             }
@@ -60,7 +58,7 @@ namespace AutNutriYA.Controllers
         // GET: Ingredientes/Edit/5
         public ActionResult Edit(string PK, string RK)
         {   
-            var model = repo.LeerPorPKRK(PK, RK);
+            var model = repo.LeerPorPKRK(PK, RK).Result;
             if(model == null){
                 return NotFound();
             }
@@ -79,7 +77,7 @@ namespace AutNutriYA.Controllers
                 return NotFound();
             }
 
-            var pack = repo.LeerPorPKRK(model.Tipo, model.Nombre);
+            var pack = repo.LeerPorPKRK(model.Tipo, model.Nombre).Result;
 
             try
             {
@@ -87,8 +85,7 @@ namespace AutNutriYA.Controllers
                 pack.Nombre = model.Nombre;
 
 
-                var resultado = repo.ActualizarIngrediente(pack);
-                System.Threading.Thread.Sleep(800);
+                var resultado = repo.ActualizarIngrediente(pack).Result;
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -100,7 +97,7 @@ namespace AutNutriYA.Controllers
         // GET: Ingredientes/Delete/5
         public ActionResult Delete(string PK, string RK)
         {   
-            var model = repo.LeerPorPKRK(PK, RK);
+            var model = repo.LeerPorPKRK(PK, RK).Result;
 
             if(model == null){
                 return NotFound();
@@ -118,13 +115,13 @@ namespace AutNutriYA.Controllers
                 return NotFound();
             }
 
-            var pack = repo.LeerPorPKRK(model.Tipo, model.Nombre);
+            var pack = repo.LeerPorPKRK(model.Tipo, model.Nombre).Result;
 
             try
             {
-                System.Threading.Thread.Sleep(1000);
-                var resultado = repo.BorrarIngrediente(model);
-                System.Threading.Thread.Sleep(1000);
+                
+                var resultado = repo.BorrarIngrediente(model).Result;
+                
                 return RedirectToAction(nameof(Index));
             }
             catch

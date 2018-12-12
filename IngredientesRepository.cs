@@ -4,13 +4,14 @@ using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Table;
 using Microsoft.WindowsAzure.Storage.Queue;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AutNutriYA{
     public class IngredientesRepository{
         public const string STORAGEACCOUNTNAME = "s101moyag8";
         public const string ACCOUNTKEY = "WPB64UdtcYgJZ+d+EQW8v+LPrj0YkakcAsQXtE6KvOhMaTxuIaP+EqD7tXHpG3hqoKMlAWFwdLR2e1vWU57i+g==";
 
-        public List<Ingrediente> LeerIngrediente(){
+        public async Task<List<Ingrediente>> LeerIngrediente(){
             var Table = ReferenciaTabla("Ingredientes");
             List<Ingrediente> Ingredientes = new List<Ingrediente>();
             TableQuery<IngredienteEntity> query = new TableQuery<IngredienteEntity>().Where
@@ -18,9 +19,9 @@ namespace AutNutriYA{
                 TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.NotEqual," ")
                 );            
                 
-                CacharIngredientes();
+                var Res = await CacharIngredientes();
 
-                async void CacharIngredientes(){
+                async Task<List<Ingrediente>> CacharIngredientes(){
                 var list = new List<IngredienteEntity>();
                 var tk = new TableContinuationToken();
                 foreach (IngredienteEntity entity in await Table.ExecuteQuerySegmentedAsync(query,tk)){
@@ -30,21 +31,23 @@ namespace AutNutriYA{
                         entity.RowKey
                     ));
                 }
+                return Ingredientes;
             }
 
             
-            return Ingredientes;
+            return Res;
         }
 
-        public Ingrediente LeerIngrediente(string correo){
+        public async Task<Ingrediente> LeerIngrediente(string RowKey){
             Ingrediente ingrediente = new Ingrediente();
             IngredienteEntity ingrediente2 = new IngredienteEntity();
             var Table = ReferenciaTabla("Ingredientes");
             TableQuery<IngredienteEntity> query = new TableQuery<IngredienteEntity>().Where(
-                TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, correo));
-            System.Threading.Thread.Sleep(1000);
-            CacharIngrediente();
-            async void CacharIngrediente(){
+                TableQuery.GenerateFilterCondition("RowKey", QueryComparisons.Equal, RowKey));
+
+            var Res = await CacharIngrediente();
+
+            async Task<Ingrediente> CacharIngrediente(){
                 var list = new List<IngredienteEntity>();
                 var tk = new TableContinuationToken();
                 foreach (IngredienteEntity entity in await Table.ExecuteQuerySegmentedAsync(query, tk)){
@@ -57,9 +60,9 @@ namespace AutNutriYA{
                     
 
                 }
+                return ingrediente;
             }
-            System.Threading.Thread.Sleep(500);
-            return ingrediente;
+            return Res;
             
             
         }
@@ -72,14 +75,14 @@ namespace AutNutriYA{
             return true;
         }
 
-        public bool ActualizarIngrediente(Ingrediente Paci)
+        public async Task<bool> ActualizarIngrediente(Ingrediente Paci)
         {
             var Table = ReferenciaTabla("Ingredientes");
 
             TableOperation retrieveOperation = TableOperation.Retrieve<IngredienteEntity>(Paci.Tipo,Paci.Nombre);
 
-            EditarNutriologo();
-                async void EditarNutriologo(){
+            var funciono = await EditarNutriologo();
+                async Task<bool> EditarNutriologo(){
                     TableResult retrievedResult = await Table.ExecuteAsync(retrieveOperation);
                     IngredienteEntity editEntity = (IngredienteEntity)retrievedResult.Result;
                     if (editEntity != null)
@@ -88,31 +91,34 @@ namespace AutNutriYA{
                         TableOperation editOperation = TableOperation.Replace(editEntity);
 
                         await Table.ExecuteAsync(editOperation);
-                    }
+                        return true;
+                    }else return false;
 
                 }
 
-            return true;
+            return funciono;
         }
 
-        public bool BorrarIngrediente(Ingrediente Paci){
+        public async Task<bool> BorrarIngrediente(Ingrediente Paci){
             var Table = ReferenciaTabla("Ingredientes");
             TableOperation retrieveOperation = TableOperation.Retrieve<IngredienteEntity>(Paci.Tipo, Paci.Nombre);
-            EliminarIngrediente();
-            async void EliminarIngrediente(){
+            
+            var fucniono = await EliminarIngrediente();
+            async Task<bool> EliminarIngrediente(){
                 TableResult retrievedResult = await Table.ExecuteAsync(retrieveOperation);
                 IngredienteEntity deleteEntity = (IngredienteEntity)retrievedResult.Result;
                 if(deleteEntity != null){
                     TableOperation deleteOperation = TableOperation.Delete(deleteEntity);
                     await Table.ExecuteAsync(deleteOperation);
-                }
+                    return true;
+                } else return false;
             }
-            return true;
+            return fucniono;
 
         }
 
         public IngredienteEntity PacEntTemp = new IngredienteEntity();
-        public Ingrediente LeerPorPKRK(string PK, string RK)
+        public async Task<Ingrediente> LeerPorPKRK(string PK, string RK)
             {
                 
                 Ingrediente IngredienteFin = new Ingrediente();
@@ -120,9 +126,9 @@ namespace AutNutriYA{
 
                 TableOperation retrieveOperation = TableOperation.Retrieve<IngredienteEntity>(PK, RK);
 
-                CacharIngrediente();
+                var Res = await CacharIngrediente();
                 
-                async void CacharIngrediente(){
+                async Task<Ingrediente> CacharIngrediente(){
                     TableResult retrievedResult = await Table.ExecuteAsync(retrieveOperation);
                     var TempPac = (IngredienteEntity)retrievedResult.Result;
                     try{
@@ -134,9 +140,9 @@ namespace AutNutriYA{
                     catch{
                         
                     }
+                    return IngredienteFin;
                 }
-               System.Threading.Thread.Sleep(500);
-               return IngredienteFin;   
+               return Res;   
             }
 
         

@@ -31,16 +31,14 @@ namespace AutNutriYA.Controllers
         public ActionResult Index()
         {
             var partitionKey = _uManager.GetUserName(HttpContext.User);
-            List<Paciente> model = repo.LeerPacientes(partitionKey);
-            System.Threading.Thread.Sleep(1000);
+            List<Paciente> model = repo.LeerPacientes(partitionKey).Result;
             return View(model);
         }
 
         // GET: Pacientes/Details/5
         public ActionResult Details(string PK, string RK)
         {
-            System.Threading.Thread.Sleep(1000);
-            var model = repo.LeerPorPKRK(PK,RK);
+            var model = repo.LeerPorPKRK(PK,RK).Result;
             if(model == null){
                 return NotFound();
             }
@@ -75,7 +73,7 @@ namespace AutNutriYA.Controllers
         // GET: Pacientes/Edit/5
         public ActionResult Edit(string PK, string RK)
         {   
-            var model = repo.LeerPorPKRK(PK, RK);
+            var model = repo.LeerPorPKRK(PK, RK).Result;
             if(model == null){
                 return NotFound();
             }
@@ -94,7 +92,7 @@ namespace AutNutriYA.Controllers
                 return NotFound();
             }
 
-            var pack = repo.LeerPorPKRK(model.CorreoNut, model.Correo);
+            var pack = repo.LeerPorPKRK(model.CorreoNut, model.Correo).Result;
 
             try
             {
@@ -108,9 +106,7 @@ namespace AutNutriYA.Controllers
                 pack.Alergias = model.Alergias;
                 pack.CorreoNut = model.CorreoNut;
 
-                System.Threading.Thread.Sleep(1000);
-                var resultado = repo.ActualizarPaciente(pack);
-                System.Threading.Thread.Sleep(500);
+                var resultado = repo.ActualizarPaciente(pack).Result;
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -122,7 +118,7 @@ namespace AutNutriYA.Controllers
         // GET: Pacientes/Delete/5
         public ActionResult Delete(string PK, string RK)
         {   
-            var model = repo.LeerPorPKRK(PK, RK);
+            var model = repo.LeerPorPKRK(PK, RK).Result;
 
             if(model == null){
                 return NotFound();
@@ -136,13 +132,13 @@ namespace AutNutriYA.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(string NombreNut, string Correo, int Edad)
         {   
-            var pacienteN = repo.LeerPorPKRK(NombreNut,Correo);
+            var pacienteN = repo.LeerPorPKRK(NombreNut,Correo).Result;
             if(pacienteN == null){
                 return NotFound();
             }
                 
                 repo.BorrarPaciente(NombreNut,Correo);
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(800);
                 return RedirectToAction(nameof(Index));
             
            

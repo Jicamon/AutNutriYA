@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using System.Threading.Tasks;
 
 namespace AutNutriYA{
     public class PacientesRepository : Controller {
@@ -17,7 +18,7 @@ namespace AutNutriYA{
 
         //private readonly UserManager<IdentityUser> userManager;
         
-        public List<Paciente> LeerPaciente(){
+        public async Task<List<Paciente>> LeerPaciente(){
             var Table = ReferenciaTabla("Pacientes");
             List<Paciente> Pacientes = new List<Paciente>();
             TableQuery<PacienteEntity> query = new TableQuery<PacienteEntity>().Where
@@ -25,11 +26,11 @@ namespace AutNutriYA{
                 TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.NotEqual    , " ")
                 );            
                 
-                CacharPacientes();
+                var Res = await CacharPacientes();
                 
                
                 
-                async void CacharPacientes(){
+                async Task<List<Paciente>> CacharPacientes(){
                 var list = new List<PacienteEntity>();
                 var tk = new TableContinuationToken();
                 foreach (PacienteEntity entity in await Table.ExecuteQuerySegmentedAsync(query,tk)){
@@ -45,13 +46,14 @@ namespace AutNutriYA{
                         entity.Alergias,
                         entity.CorreoNut));
                 }
+                return Pacientes;
             }
 
             
-            return Pacientes;
+            return Res;
         }
 
-        public List<Paciente> LeerPacientes(string pk){
+        public async Task<List<Paciente>> LeerPacientes(string pk){
             var Table = ReferenciaTabla("Pacientes");
             List<Paciente> Pacientes = new List<Paciente>();
             TableQuery<PacienteEntity> query = new TableQuery<PacienteEntity>().Where
@@ -59,12 +61,9 @@ namespace AutNutriYA{
                 TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, pk)
                 );            
                 
-                CacharPacientes();
-                
-               
-                
-                async void CacharPacientes(){
-                var list = new List<PacienteEntity>();
+            var Res = await CacharPacientes();
+
+            async Task<List<Paciente>> CacharPacientes(){
                 var tk = new TableContinuationToken();
                 foreach (PacienteEntity entity in await Table.ExecuteQuerySegmentedAsync(query,tk)){
                     
@@ -79,10 +78,12 @@ namespace AutNutriYA{
                         entity.Alergias,
                         entity.CorreoNut));
                 }
+                return Pacientes;
+
             }
 
             
-            return Pacientes;
+            return Res;
         }
         public void AgregarPacienteANutriologo(Paciente model)
         {
@@ -123,16 +124,16 @@ namespace AutNutriYA{
             return true;
         }
 
-        public Paciente LeerPaciente(string correo){
+        public async Task<Paciente> LeerPaciente(string correo){
             Paciente paci = new Paciente();
             var list = new List<Paciente>();
             PacienteEntity paci2 = new PacienteEntity();
             var Table = ReferenciaTabla("Pacientes");
             TableQuery<PacienteEntity> query = new TableQuery<PacienteEntity>().Where(
                 TableQuery.GenerateFilterCondition("RowKey", QueryComparisons.Equal, correo));
-            System.Threading.Thread.Sleep(1000);
-            CacharPaciente();
-            async void CacharPaciente(){
+
+            var Res = await CacharPaciente();
+            async Task<Paciente> CacharPaciente(){
                 
                 var tk = new TableContinuationToken();
                 foreach (PacienteEntity entity in await Table.ExecuteQuerySegmentedAsync(query, tk)){
@@ -152,9 +153,9 @@ namespace AutNutriYA{
                     
 
                 }
+                return paci;
             }
-            System.Threading.Thread.Sleep(500);
-            return paci;
+            return Res;
             
             
         }
@@ -196,36 +197,37 @@ namespace AutNutriYA{
         }
         
 
-        public bool ActualizarPaciente(Paciente Paci)
+        public async Task<bool> ActualizarPaciente(Paciente Paci)
         {
 
             var Table = ReferenciaTabla("Pacientes");
 
             TableOperation retrieveOperation = TableOperation.Retrieve<PacienteEntity>(Paci.NombreNut,Paci.Correo);
-            System.Threading.Thread.Sleep(2000);
-            EditarPaciente();
-                async void EditarPaciente(){
-                    TableResult retrievedResult = await Table.ExecuteAsync(retrieveOperation);
-                    PacienteEntity editEntity = (PacienteEntity)retrievedResult.Result;
-                    if (editEntity != null)
-                    {
+            var funciono = await EditarPaciente();
+            async Task<bool> EditarPaciente(){
+                TableResult retrievedResult = await Table.ExecuteAsync(retrieveOperation);
+                PacienteEntity editEntity = (PacienteEntity)retrievedResult.Result;
+                if (editEntity != null)
+                {
                         
-                        editEntity.NombrePac = Paci.NombrePac;
-                        editEntity.Edad      = Paci.Edad;
-                        editEntity.Altura    = Paci.Altura;
-                        editEntity.Peso      = Paci.Peso;
-                        editEntity.Alergias  = Paci.Alergias;
-                        var Wea              = (double)Paci.Altura / 100;                    // ------
-                        editEntity.IMC       = (double)Paci.Peso / (Wea*Wea);   // ------
+                    editEntity.NombrePac = Paci.NombrePac;
+                    editEntity.Edad      = Paci.Edad;
+                    editEntity.Altura    = Paci.Altura;
+                    editEntity.Peso      = Paci.Peso;
+                    editEntity.Alergias  = Paci.Alergias;
+                    var Wea              = (double)Paci.Altura / 100;                    // ------
+                    editEntity.IMC       = (double)Paci.Peso / (Wea*Wea);   // ------
 
-                        TableOperation editOperation = TableOperation.Replace(editEntity);
+                    TableOperation editOperation = TableOperation.Replace(editEntity);
 
-                        await Table.ExecuteAsync(editOperation);
-                    }
+                    await Table.ExecuteAsync(editOperation);
+                    return true;
+                }return false;
 
-                }
 
-            return true;
+            }
+
+            return funciono;
         }
 
         public bool BorrarPaciente(Paciente Paci){
@@ -246,7 +248,7 @@ namespace AutNutriYA{
         }
 
         public PacienteEntity PacEntTemp = new PacienteEntity();
-        public Paciente LeerPorPKRK(string PK, string RK)
+        public async Task<Paciente> LeerPorPKRK(string PK, string RK)
             {
                 
                 Paciente PacienteFin = new Paciente();
@@ -254,9 +256,9 @@ namespace AutNutriYA{
 
                 TableOperation retrieveOperation = TableOperation.Retrieve<PacienteEntity>(PK, RK);
 
-                CacharPaciente();
+                var Res = await CacharPaciente();
                 
-                async void CacharPaciente(){
+                async Task<Paciente> CacharPaciente(){
                     TableResult retrievedResult = await Table.ExecuteAsync(retrieveOperation);
                     var TempPac = (PacienteEntity)retrievedResult.Result;
 
@@ -271,9 +273,10 @@ namespace AutNutriYA{
                         TempPac.Alergias,
                         TempPac.CorreoNut);
                     PacienteFin = PaciFin;
+
+                    return PacienteFin;
                 }
-               System.Threading.Thread.Sleep(500);
-               return PacienteFin;   
+               return Res;   
             }
 
         

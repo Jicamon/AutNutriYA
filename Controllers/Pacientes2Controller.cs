@@ -19,8 +19,7 @@ namespace AutNutriYA.Controllers
         [HttpGet("GetPacientes")]
         public ActionResult<List<Paciente>> Get()
         {
-            var model = repo.LeerPaciente();
-            System.Threading.Thread.Sleep(1000);
+            var model = repo.LeerPaciente().Result;
             if(model == null)
                 return NotFound();
             return model;
@@ -30,14 +29,12 @@ namespace AutNutriYA.Controllers
         /*
             Para Buscar 
             api/Pacientes2/GetPacientes/PK/RK
-            Ej. api/Pacientes2/GetPacientes/Otros/Quesadilla
+            Ej. api/Pacientes2/GetPacientes/Chemardo3@gmail.com/Bryanse@hotmail.com
          */
         [HttpGet("GetPacientes/{PK}/{RK}")]
         public ActionResult<Paciente> Get(string PK, string RK)
         {
-            System.Threading.Thread.Sleep(1000);
-            var model = repo.LeerPorPKRK(PK, RK);
-            System.Threading.Thread.Sleep(1000);
+            var model = repo.LeerPorPKRK(PK, RK).Result;
             if(model == null){
                 return NotFound();
             }
@@ -47,9 +44,7 @@ namespace AutNutriYA.Controllers
         [HttpGet("GetPacientes/{RK}")]
         public ActionResult<Paciente> Get(string RK)
         {
-            System.Threading.Thread.Sleep(1000);
-            var model = repo.LeerPaciente(RK);
-            System.Threading.Thread.Sleep(1000);
+            var model = repo.LeerPaciente(RK).Result;
             if(model == null){
                 return NotFound();
             }
@@ -86,15 +81,14 @@ namespace AutNutriYA.Controllers
                 return NotFound();
             }
 
-            var resultado = repo.ActualizarPaciente(model);;
-            System.Threading.Thread.Sleep(1000);
+            var resultado = repo.ActualizarPaciente(model).Result;
 
 
             return resultado;
             
         }
         
-        // DELETE: api/ApiWithActions/5
+        // DELETE: api/ApiWithActions/
         /*
             Solo tienes que enviar la request de Delete a 
             api/Pacientes2/DeletePacientes/PK/RK

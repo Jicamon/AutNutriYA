@@ -16,7 +16,6 @@ namespace AutNutriYA.Controllers
         public ActionResult Index()
         {
             List<Recordatorio> model = repo.LeerRecordatorio().Result;
-            //System.Threading.Thread.Sleep(500);
             return View(model);
         }
 
@@ -24,7 +23,6 @@ namespace AutNutriYA.Controllers
         public ActionResult Details(string PK, string RK)
         {
             try{
-                //System.Threading.Thread.Sleep(1000); 
                 var model = repo.LeerPorPKRK(PK,RK).Result;
                 if(model == null){
                     return NotFound();

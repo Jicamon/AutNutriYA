@@ -125,7 +125,6 @@ namespace AutNutriYA{
             var Table = ReferenciaTabla("Dietas");
             TableQuery<DietaEntity> query = new TableQuery<DietaEntity>().Where(
                 TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, correo));
-            //System.Threading.Thread.Sleep(1000);
             var Res = await CacharDieta();
 
             async Task<List<Dieta>> CacharDieta(){
@@ -158,7 +157,6 @@ namespace AutNutriYA{
                 }
                 return list;
             }
-            //System.Threading.Thread.Sleep(500);
             return Res;
                        
         }
@@ -199,7 +197,6 @@ namespace AutNutriYA{
 
                     return DietaFin;
                 }
-               //System.Threading.Thread.Sleep(200);
                return Res;   
             }
 

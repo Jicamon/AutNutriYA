@@ -105,7 +105,6 @@ namespace AutNutriYA{
 
             TableOperation retrieveOperation = TableOperation.Retrieve<RecordatorioEntity>(PK, RK);
 
-            //System.Threading.Thread.Sleep(2500);
             var funciono = await CacharRecordatorio2();
                 
             async Task<bool> CacharRecordatorio2(){
@@ -127,7 +126,6 @@ namespace AutNutriYA{
             TableOperation retrieveOperation = TableOperation.Retrieve<RecordatorioEntity>(PK, RK);
 
             var Res = await CacharRecordatorio();
-            //System.Threading.Thread.Sleep(500);
                 
             async Task<Recordatorio> CacharRecordatorio(){
                 TableResult retrievedResult = await Table.ExecuteAsync(retrieveOperation);
@@ -150,7 +148,6 @@ namespace AutNutriYA{
 
                 return RecordatorioFin;
             }
-            //System.Threading.Thread.Sleep(200);
             return Res;   
         }
 

@@ -5,36 +5,47 @@
     PlatillosRepo repo        = new PlatillosRepo();
     PacientesRepository alergias = new PacientesRepository();
     List<Platillo> Platillos  = repo.LeerPlatillo().Result;
-    System.Threading.Thread.Sleep(1000);
-    Paciente Paciente  = alergias.LeerPaciente(ViewBag.Correo);
-    System.Threading.Thread.Sleep(1000);
+    Paciente Paciente  = alergias.LeerPaciente(ViewBag.Correo).Result;
     List<Platillo> Desayunos  = new List<Platillo>();
     List<Platillo> Comidas    = new List<Platillo>();
     List<Platillo> Cenas      = new List<Platillo>();
     List<Platillo> Colaciones = new List<Platillo>();
     List<Platillo> Bebidas    = new List<Platillo>();
     //int i=0;
+    bool alergico=false;
     bool alergia=false;
     //string aux;
-    string[] alr = Paciente.Alergias.Split(';');
+    string[] alr=null;
+    if (Paciente.Alergias != null)
+    {
+        
+        alr = Paciente.Alergias.Split(';');
+        alergico = true;
+        
+    }
     foreach (var item in Platillos)
     {
         //i=i+1;
         //aux=i.ToString();
-        string[] ing = item.ingredientes.Split(','); 
-        foreach (var a in alr)
+        if (alergico)
         {
-            if(ing.Contains(a)){
-                alergia=true;
-                break;
+            string[] ing = item.ingredientes.Split(','); 
+            foreach (var a in alr)
+            {
+                if(ing.Contains(a)){
+                    alergia=true;
+                    break;
+                }
             }
+            if (alergia)
+            {
+                alergia = false;
+                continue;
+            }
+            
         }
-        if (alergia)
-        {
-            alergia = false;
-            continue;
-        }
-        else if (item.tipo=="Desayuno"){
+        
+        if (item.tipo=="Desayuno"){
             Desayunos.Add(item);
         }else if (item.tipo=="Comida"){
             Comidas.Add(item);

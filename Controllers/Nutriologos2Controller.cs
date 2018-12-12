@@ -16,8 +16,7 @@ namespace AutNutriYA.Controllers
         [HttpGet("GetNutriologos")]
         public ActionResult<List<Nutriologo>> Get()
         {
-            var model = repo.LeerNutriologos();
-            System.Threading.Thread.Sleep(1000);
+            var model = repo.LeerNutriologos().Result;
             if(model == null)
                 return NotFound();
             return model;
@@ -28,9 +27,7 @@ namespace AutNutriYA.Controllers
         [HttpGet("GetNutriologos/{RK}")]
         public ActionResult<Nutriologo> Get(string RK)
         {
-            System.Threading.Thread.Sleep(1000);
-            var model = repo.LeerNutriologo(RK);
-            System.Threading.Thread.Sleep(1000);
+            var model = repo.LeerNutriologo(RK).Result;
             if(model == null){
                 return NotFound();
             }

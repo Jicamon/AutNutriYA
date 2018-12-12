@@ -115,7 +115,6 @@ namespace AutNutriYA{
                     PlatilloFin = PlatilloTmp;
                     return PlatilloFin;
                 }
-               System.Threading.Thread.Sleep(200);
                return Res;   
             }
 

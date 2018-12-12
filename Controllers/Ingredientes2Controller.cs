@@ -17,8 +17,7 @@ namespace AutNutriYA.Controllers
         [HttpGet("GetIngredientes")]
         public ActionResult<List<Ingrediente>> Get()
         {
-            var model = repo.LeerIngrediente();
-            System.Threading.Thread.Sleep(1000);
+            var model = repo.LeerIngrediente().Result;
             if(model == null)
                 return NotFound();
             return model;
@@ -29,9 +28,7 @@ namespace AutNutriYA.Controllers
         [HttpGet("GetIngredientes/{RK}")]
         public ActionResult<Ingrediente> Get(string RK)
         {
-            System.Threading.Thread.Sleep(1000);
-            var model = repo.LeerIngrediente(RK);
-            System.Threading.Thread.Sleep(1000);
+            var model = repo.LeerIngrediente(RK).Result;
             if(model == null){
                 return NotFound();
             }

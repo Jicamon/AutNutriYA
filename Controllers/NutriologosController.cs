@@ -26,8 +26,7 @@ namespace AutNutriYA.Controllers
         NutriologosRepository repo = new NutriologosRepository();
         public ActionResult Index()
         {
-            List<Nutriologo> model = repo.LeerNutriologos();
-            System.Threading.Thread.Sleep(800);
+            List<Nutriologo> model = repo.LeerNutriologos().Result;
             return View(model);
             
         }
@@ -35,7 +34,7 @@ namespace AutNutriYA.Controllers
         // GET: Nutriologo/Details/5
         public ActionResult Details(string correo, string nombre)
         {
-            var model = repo.LeerNutriologo(correo,nombre);
+            var model = repo.LeerNutriologo(correo,nombre).Result;
             if(model == null){
                 return NotFound();
             }
@@ -69,7 +68,7 @@ namespace AutNutriYA.Controllers
         // GET: Nutriologo/Edit/5
         public ActionResult Edit(string correo,string nombre)
         {
-            var model = repo.LeerNutriologo(correo,nombre);
+            var model = repo.LeerNutriologo(correo,nombre).Result;
             if(model == null){
                 return NotFound();
             }
@@ -82,7 +81,7 @@ namespace AutNutriYA.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Nutriologo model)
         {
-            var newNutriologo = repo.LeerNutriologo(model.Correo,model.Nombre);
+            var newNutriologo = repo.LeerNutriologo(model.Correo,model.Nombre).Result;
 
             if(model == null){
                 return NotFound();
@@ -96,8 +95,7 @@ namespace AutNutriYA.Controllers
                 newNutriologo.Telefono = model.Telefono;
                 newNutriologo.Direccion = model.Direccion;
 
-                var resultado = repo.ActualizarNutriologo(newNutriologo);
-                System.Threading.Thread.Sleep(800);
+                var resultado = repo.ActualizarNutriologo(newNutriologo).Result;
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -110,7 +108,7 @@ namespace AutNutriYA.Controllers
         public ActionResult Delete(string correo,string nombre)
         {
             
-            var model = repo.LeerNutriologo(correo,nombre);
+            var model = repo.LeerNutriologo(correo,nombre).Result;
             if(model == null){
                 return NotFound();
             }
@@ -126,13 +124,12 @@ namespace AutNutriYA.Controllers
             //try
             //{
                 // TODO: Add delete logic here
-                var newNutriologo = repo.LeerNutriologo(Correo,Nombre);
+                var newNutriologo = repo.LeerNutriologo(Correo,Nombre).Result;
 
                 if(newNutriologo == null){
                 return NotFound();
                 }
-                var resultado = repo.BorrarNutriologo(newNutriologo);
-                System.Threading.Thread.Sleep(800);
+                var resultado = repo.BorrarNutriologo(newNutriologo).Result;
                 return RedirectToAction(nameof(Index));
             /* }
             catch

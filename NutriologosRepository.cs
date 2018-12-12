@@ -6,13 +6,14 @@ using Microsoft.WindowsAzure.Storage.Queue;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace AutNutriYA{
     public class NutriologosRepository{
         public const string STORAGEACCOUNTNAME = "s101moyag8";
         public const string ACCOUNTKEY = "WPB64UdtcYgJZ+d+EQW8v+LPrj0YkakcAsQXtE6KvOhMaTxuIaP+EqD7tXHpG3hqoKMlAWFwdLR2e1vWU57i+g==";
 
-        public List<Nutriologo> LeerNutriologos(){
+        public async Task<List<Nutriologo>> LeerNutriologos(){
             var StorageAccount = new CloudStorageAccount(new StorageCredentials(STORAGEACCOUNTNAME,ACCOUNTKEY),false);
             var tableClient = StorageAccount.CreateCloudTableClient();
             var Table = tableClient.GetTableReference("Nutriologo");
@@ -22,9 +23,9 @@ namespace AutNutriYA{
                 TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.NotEqual," ")
                 );            
                 
-                CacharNutriologos();
+            var Res = await CacharNutriologos();
 
-                async void CacharNutriologos(){
+            async Task<List<Nutriologo>> CacharNutriologos(){
                 var tk = new TableContinuationToken();
                 foreach (NutriologoEntity entity in await Table.ExecuteQuerySegmentedAsync(query,tk)){
                     
@@ -35,20 +36,21 @@ namespace AutNutriYA{
                         entity.Direccion,
                         entity.Telefono));
                 }
+                return Nutriologos;
             }
 
             
-            return Nutriologos;
+            return Res;
         }
 
-        public Nutriologo LeerNutriologo(string correo, string nombre){
+        public async Task<Nutriologo> LeerNutriologo(string correo, string nombre){
                 
             var Table = ReferenciaTabla("Nutriologo");
             Nutriologo nutriologo= new Nutriologo();
             TableOperation retrieveOperation = TableOperation.Retrieve<NutriologoEntity>(correo, nombre);
 
-            CacharNutriologo();
-            async void CacharNutriologo(){
+            var Res = await CacharNutriologo();
+            async Task<Nutriologo> CacharNutriologo(){
 
                 TableResult retrievedResult = await Table.ExecuteAsync(retrieveOperation);
                 var newNutriologo = (NutriologoEntity)retrievedResult.Result;
@@ -61,20 +63,21 @@ namespace AutNutriYA{
                         newNutriologo.Telefono);
 
                 nutriologo = newNutrilogo2;
+                return nutriologo;
                 }
-            System.Threading.Thread.Sleep(500);
-            return nutriologo;
+            return Res;
         }
 
-        public Nutriologo LeerNutriologo(string correo){
+        public async Task<Nutriologo> LeerNutriologo(string correo){
             Nutriologo nutriologo = new Nutriologo();
             NutriologoEntity nutriologo2 = new NutriologoEntity();
             var Table = ReferenciaTabla("Nutriologo");
             TableQuery<NutriologoEntity> query = new TableQuery<NutriologoEntity>().Where(
                 TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, correo));
-            System.Threading.Thread.Sleep(1000);
-            CacharNutriologo();
-            async void CacharNutriologo(){
+            
+            var res = await CacharNutriologo();
+
+            async Task<Nutriologo> CacharNutriologo(){
                 var list = new List<NutriologoEntity>();
                 var tk = new TableContinuationToken();
                 foreach (NutriologoEntity entity in await Table.ExecuteQuerySegmentedAsync(query, tk)){
@@ -90,51 +93,50 @@ namespace AutNutriYA{
                     
 
                 }
+                return nutriologo;
             }
-            System.Threading.Thread.Sleep(500);
-            return nutriologo;
+            return res;
             
             
         }
 
-        public bool ActualizarNutriologo(Nutriologo Nutriologo)
+        public async Task<bool> ActualizarNutriologo(Nutriologo Nutriologo)
         {
             var Table = ReferenciaTabla("Nutriologo");
 
             TableOperation retrieveOperation = TableOperation.Retrieve<NutriologoEntity>(Nutriologo.Correo, Nutriologo.Nombre);
 
-            EditarNutriologo();
-                async void EditarNutriologo(){
-                    TableResult retrievedResult = await Table.ExecuteAsync(retrieveOperation);
-                    NutriologoEntity editEntity = (NutriologoEntity)retrievedResult.Result;
-                    if (editEntity != null)
-                    {
-                        editEntity.Pacientes = Nutriologo.Pacientes;
-                        editEntity.Telefono  = Nutriologo.Telefono;
-                        editEntity.Direccion = Nutriologo.Direccion;
-                        editEntity.newNombre = Nutriologo.Nombre;
-                        editEntity.newCorreo = Nutriologo.Correo;
+            var funciono = await EditarNutriologo();
+            
+            async Task<bool> EditarNutriologo(){
+                TableResult retrievedResult = await Table.ExecuteAsync(retrieveOperation);
+                NutriologoEntity editEntity = (NutriologoEntity)retrievedResult.Result;
+                if (editEntity != null)
+                {
+                    editEntity.Pacientes = Nutriologo.Pacientes;
+                    editEntity.Telefono  = Nutriologo.Telefono;
+                    editEntity.Direccion = Nutriologo.Direccion;
+                    editEntity.newNombre = Nutriologo.Nombre;
+                    editEntity.newCorreo = Nutriologo.Correo;
 
-                        TableOperation editOperation = TableOperation.Replace(editEntity);
+                    TableOperation editOperation = TableOperation.Replace(editEntity);
                     
+                    await Table.ExecuteAsync(editOperation);
+                    return true;
+                }else return false;
+                
+            }
 
-                    // Execute the operation.
-                        await Table.ExecuteAsync(editOperation);
-                    }
-                    
-                    
-
-                }
-
-            return true;
+            return funciono;
         }
 
-        public bool BorrarNutriologo(Nutriologo model)
+        public async Task<bool> BorrarNutriologo(Nutriologo model)
         {
             var Table = ReferenciaTabla("Nutriologo");
             TableOperation retrieveOperation = TableOperation.Retrieve<NutriologoEntity>(model.Correo,model.Nombre);
-            EliminarNutriologo();
-            async void EliminarNutriologo(){
+            
+            var funciono = await EliminarNutriologo();
+            async Task<bool> EliminarNutriologo(){
                 
                 TableResult retrievedResult = await Table.ExecuteAsync(retrieveOperation);
                 NutriologoEntity deleteEntity = (NutriologoEntity)retrievedResult.Result;
@@ -142,19 +144,15 @@ namespace AutNutriYA{
                     TableOperation deleteOperation = TableOperation.Delete(deleteEntity);
                     // Execute the operation.
                     await Table.ExecuteAsync(deleteOperation);
-                }
+                    return true;
+                }else return false;
             
             }
-            System.Threading.Thread.Sleep(800);
-            return true;
+            return funciono;
 
         }
 
         public bool CrearNutriologo(Nutriologo model, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, string contrasena){
-            
-
-            
-
             var StorageAccount = new CloudStorageAccount(new StorageCredentials(STORAGEACCOUNTNAME,ACCOUNTKEY),false);
             var tableClient = StorageAccount.CreateCloudTableClient();
             var Table = tableClient.GetTableReference("Nutriologo");

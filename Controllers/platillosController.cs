@@ -16,15 +16,12 @@ namespace AutNutriYA.Controllers
         public ActionResult Index()
         {
             List<Platillo> model = repo.LeerPlatillo().Result;
-            //System.Threading.Thread.Sleep(500);
             return View(model);
         }
 
         // GET: platillos/Details/5
         public ActionResult Details(string PK, string RK)
         {
-            //System.Threading.Thread.Sleep(1000);
-            
             var model = repo.LeerPorPKRK(PK,RK).Result;
             if(model == null){
                 return NotFound();
@@ -84,7 +81,6 @@ namespace AutNutriYA.Controllers
                 p.porcion = model.porcion;
 
                 var resultado = repo.ActualizarPlatillo(p).Result;
-                //System.Threading.Thread.Sleep(500);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -113,9 +109,7 @@ namespace AutNutriYA.Controllers
 
             try
             {
-                //System.Threading.Thread.Sleep(500);
                 var resultado = repo.BorrarPlatillo(model).Result;
-                //System.Threading.Thread.Sleep(500);
                 return RedirectToAction(nameof(Index));
             }
             catch
