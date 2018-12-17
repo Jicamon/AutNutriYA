@@ -34,7 +34,10 @@ namespace AutNutriYA.Controllers
         public IActionResult InfoApp()
         {
             ViewData["Message"] = "Descarga la App";
-
+            var myUri = new Uri("https://s101moyag8.blob.core.windows.net/app/NutriYA.apk");
+            var uri = myUri.AbsolutePath;
+            ViewData["Link"]= uri;
+            //OnActionExecuted
             return View();
         }
 
