@@ -77,15 +77,15 @@ namespace AutNutriYA.Controllers
                 return NotFound();
             }
 
-            var pack = repo.LeerPorPKRK(model.Tipo, model.Nombre).Result;
+            var p = repo.LeerPorPKRK(model.Tipo, model.Nombre).Result;
 
             try
             {
-                pack.Tipo = model.Tipo;
-                pack.Nombre = model.Nombre;
+                p.Tipo = model.Tipo;
+                p.Nombre = model.Nombre;
 
 
-                var resultado = repo.ActualizarIngrediente(pack).Result;
+                var resultado = repo.ActualizarIngrediente(p).Result;
                 return RedirectToAction(nameof(Index));
             }
             catch
