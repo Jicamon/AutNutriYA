@@ -12,6 +12,9 @@ namespace AutNutriYA.Controllers
     public class DietasController : Controller
     {
         DietasRepo repo = new DietasRepo();
+        PlatillosRepo platillos = new PlatillosRepo();
+        IngredientesRepository Tipo = new IngredientesRepository();
+        PacientesRepository alergias = new PacientesRepository();
         public ActionResult Index(string correo)
         {
             ViewData["Correo"] = correo;
@@ -35,6 +38,8 @@ namespace AutNutriYA.Controllers
         {
             ViewData["Correo"] = correo;
             var model = new Dieta();
+            GestionPlatillos(correo);         
+
             return View(model);
         }
 
@@ -62,6 +67,7 @@ namespace AutNutriYA.Controllers
             if(model == null){
                 return NotFound();
             }
+            GestionPlatillos(model.Nombre);
             return View(model);
         }
 
@@ -131,6 +137,73 @@ namespace AutNutriYA.Controllers
             {
                 return View();
             }
+        }
+
+        public void GestionPlatillos(string correo){
+            List<Platillo> Platillos  = platillos.LeerPlatillo().Result;
+            Paciente Paciente  = alergias.LeerPaciente(correo).Result;
+            List<Platillo> Desayunos  = new List<Platillo>();
+            List<Platillo> Comidas    = new List<Platillo>();
+            List<Platillo> Cenas      = new List<Platillo>();
+            List<Platillo> Colaciones = new List<Platillo>();
+            List<Platillo> Bebidas    = new List<Platillo>();
+            //int i=0;
+            bool alergico=false;
+            bool alergia=false;
+            //string aux;
+            string[] alr=null;
+            if (Paciente.Alergias != null)
+            {
+                
+                alr = Paciente.Alergias.Split(';');
+                alergico = true;
+                
+            }
+            foreach (var item in Platillos)
+            {
+                if (alergico)
+                {
+                    var ings = item.ingredientes.Split(',');
+                    
+                    foreach (var i in ings)
+                    {
+                        var ing = Tipo.LeerIngrediente(i).Result;
+                        string tipo = ing.Tipo;
+                        if(alr.Contains(i) || alr.Contains(tipo)){
+                            alergia=true;
+                            break;
+                        }
+                    }
+                    if (alergia)
+                    {
+                        alergia = false;
+                        continue;
+                    }
+                    
+                }
+                
+                if (item.tipo=="Desayuno"){
+                    Desayunos.Add(item);
+                }else if (item.tipo=="Comida"){
+                    Comidas.Add(item);
+                }else if (item.tipo=="Cena"){
+                    Cenas.Add(item);
+                }else if (item.tipo=="Colacion"){
+                    Colaciones.Add(item);
+                }else if (item.tipo=="Bebida"){
+                    Bebidas.Add(item);
+                }else{
+                    Desayunos.Add(item);
+                    Comidas.Add(item);
+                    Cenas.Add(item);
+                }
+            }
+
+            ViewBag.Desayunos = Desayunos;
+            ViewBag.Comidas = Comidas;
+            ViewBag.Cenas = Cenas;
+            ViewBag.Colaciones = Colaciones;
+            ViewBag.Bebidas = Bebidas;
         }
     }
 }
