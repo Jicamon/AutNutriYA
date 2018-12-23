@@ -12,6 +12,7 @@ namespace AutNutriYA.Controllers
     public class platillosController : Controller
     {
         PlatillosRepo repo = new PlatillosRepo();
+        IngredientesRepository ingre = new IngredientesRepository();
         // GET: platillos
         public ActionResult Index()
         {
@@ -33,6 +34,8 @@ namespace AutNutriYA.Controllers
         public ActionResult Create()
         {
             var model = new Platillo();
+            var Ingredientes = ingre.LeerIngrediente().Result;
+            ViewBag.Ingre = Ingredientes;
             return View(model);
         }
 
@@ -56,6 +59,8 @@ namespace AutNutriYA.Controllers
         public ActionResult Edit(string PK, string RK)
         {
             var model = repo.LeerPorPKRK(PK, RK).Result;
+            var Ingredientes = ingre.LeerIngrediente().Result;
+            ViewBag.ingre = Ingredientes;
             if(model == null){
                 return NotFound();
             }
@@ -70,7 +75,6 @@ namespace AutNutriYA.Controllers
             if(model == null){
                 return NotFound();
             }
-
             var p = repo.LeerPorPKRK(model.tipo, model.platillo).Result;
             try
             {

@@ -7,17 +7,52 @@
     li.Add(new SelectListItem(){Text="Darunia", Value = "20"});
     li.Add(new SelectListItem(){Text="Ruto", Value = "30"});
     li.Add(new SelectListItem(){Text="Malon", Value = "40"});
+
+
 }
 
 <h2>Agregar</h2>
 
 <h4>Platillo</h4>
+
+<script>
+    function agregarIngredienteAPlatillo(){
+        var inp = document.getElementById("Ingredientes");
+        var sel = document.getElementById("Select");
+        var ingre = sel.options[sel.selectedIndex].text;
+        var string = inp.value;
+
+        if(string.search(ingre) == -1){
+            if(inp.value == 0){
+                inp.value = ingre;
+            }else{
+                inp.value = inp.value + "," + ingre;
+            }
+        }
+    }
+
+    function removerIngredienteDePlatillo(){
+        var inp = document.getElementById("Ingredientes");
+        var sel = document.getElementById("Select");
+        var ingre = sel.options[sel.selectedIndex].text;
+        var string = inp.value;
+
+        if(string.search(ingre) != -1){
+            if(string.search(ingre) == 0){
+                inp.value = inp.value.replace(ingre + ",","");
+                inp.value = inp.value.replace(ingre,"");
+            }else{
+                inp.value = inp.value.replace("," + ingre, "");
+            }
+        }
+    }
+</script>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-          
+            
             <div class="form-group">
                 <label asp-for="tipo" class="control-label">Tipo</label><br>
                 <select class="form-control" asp-for="tipo">
@@ -29,17 +64,32 @@
                     <option class="form-control" value="Bebida">Bebida</option>
                     <option class="form-control" value="Otros">Otros</option>
                 </select>
-                <!--<input asp-for="Dia" class="form-control" />-->
                 <span asp-validation-for="tipo" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="platillo" class="control-label">Platillo</label>
                 <input asp-for="platillo" class="form-control" />
                 <span asp-validation-for="platillo" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label class="control-label">Agregar Ingrediente</label><br>
+                <select id="Select" class="form-control">
+                @{
+                    foreach(var element in ViewBag.Ingre){
+                        <option class="form-control"alue="@element.Nombre">@element.Nombre</option>
+                    }
+                }
+                </select>
+                <span class="text-danger"></span>
+                <button onclick="agregarIngredienteAPlatillo()" type="button" class="btn btn-default">Agregar Ingrediente</button>    
+                <button onclick="removerIngredienteDePlatillo()" type="button" class="btn btn-default">Remover Ingrediente</button>    
+            </div>
+
             <div class="form-group">
                 <label asp-for="ingredientes" class="control-label">Ingredientes</label><br>
-                <input asp-for="ingredientes" class="form-control" />
+                <input id="Ingredientes" asp-for="ingredientes" class="form-control" readonly>
                 <span asp-validation-for="ingredientes" class="text-danger"></span>
             </div>
             <div class="form-group">
